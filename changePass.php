@@ -9,8 +9,8 @@ if (isset($_POST['oldPassword'])) {
     $username = $_SESSION['username'];
     $password = mysqli_fetch_array(mysqli_query($conn, "SELECT `password` FROM `users` WHERE username='$username'"));
 
-    $oldpass = md5($_POST["oldPassword"]);
-    $newpass = md5($_POST["newPassword"]);
+    $oldpass = sha1($_POST["oldPassword"]);
+    $newpass = sha1($_POST["newPassword"]);
 
     if ($oldpass == $password[0]) {
 

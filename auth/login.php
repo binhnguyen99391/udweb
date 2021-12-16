@@ -10,7 +10,7 @@ if (isset($_POST['username'])) {
     $password = mysqli_real_escape_string($conn, $password);
     // Check user is exist in the database
     $query    = "SELECT * FROM `users` WHERE username='$username'
-                     AND password='" . md5($password) . "'";
+                     AND password='" . sha1($password) . "'";
     $result = mysqli_query($conn, $query) or die();
     $rows = mysqli_num_rows($result);
     if ($rows == 1) {
@@ -27,18 +27,18 @@ if (isset($_POST['username'])) {
 } else {
 ?>
 
-    <div class="container">
+    <div class="row m-5 w-25 mx-auto">
         <form action="" method="post">
             <div class="form-group">
                 <label for="InputUsername">Username</label>
-                <input type="text" class="form-control" id="InputUsername" name="username" placeholder="Enter Username" required>
+                <input type="text" class="form-control" id="InputUsername" name="username" placeholder="Enter Username" required autocomplete="username">
             </div>
             <div class="form-group">
                 <label for="Password">Password</label>
                 <input type="password" class="form-control" id="Password" name="password" placeholder="Enter Password" required autocomplete="new-password">
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
 <?php

@@ -41,7 +41,7 @@ if (isset($_POST['txtUsername'])) {
     }
 
     $query    = "INSERT into users (username, password, email, phone, address)
-                     VALUES ('$username', '" . md5($password) . "', '$email', '$phone', '$address')";
+                     VALUES ('$username', '" . sha1($password) . "', '$email', '$phone', '$address')";
     $result   = mysqli_query($conn, $query);
 
     if ($result) {
@@ -59,7 +59,7 @@ if (isset($_POST['txtUsername'])) {
 ?>
 
 
-    <div class="container">
+    <div class="row m-5 w-25 mx-auto">
         <form action="" method="post">
             <div class="form-group">
                 <label for="InputUsername">Username *</label>
@@ -87,7 +87,7 @@ if (isset($_POST['txtUsername'])) {
                 <input type="text" class="form-control" name="txtAddress" id="Address" placeholder="Enter Address">
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>
 

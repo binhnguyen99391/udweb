@@ -39,14 +39,13 @@ if (isset($_POST['inputEmail'])) {
     
 } else {
 ?>
-    <div class="container">
-
+    <div class="row m-5 w-25 mx-auto">
         <form action="" method="post">
             <div class="form-group">
                 <label for="InputUsername">Email *</label>
                 <input type="email" class="form-control" id="Email" name="inputEmail" placeholder="Enter Email" required>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Send</button>
         </form>
     </div>
 <?php

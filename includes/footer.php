@@ -4,8 +4,6 @@
     <a href="#">Back to top</a>
   </p>
 </footer>
+</body>
 
-
-    
-  </body>
 </html>
