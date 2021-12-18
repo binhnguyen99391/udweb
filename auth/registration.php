@@ -21,18 +21,11 @@ if (isset($_POST['txtUsername'])) {
     $phone   = addslashes($_POST['txtPhone']);
     $address   = stripslashes($_POST['txtAddress']);
 
-    //Kiểm tra người dùng đã nhập liệu đầy đủ chưa
-    if (!$username || !$password || !$email || !$phone || !$address) {
-        echo "Vui lòng nhập đầy đủ thông tin. <a href='javascript: history.go(-1)'>Trở lại</a>";
-        exit;
-    }
-
     //Kiểm tra tên đăng nhập này đã có người dùng chưa
     if (mysqli_num_rows(mysqli_query($conn, "SELECT username FROM users WHERE username='$username'"))) {
         echo "Tên đăng nhập này đã có người dùng. Vui lòng chọn tên đăng nhập khác. <a href='javascript: history.go(-1)'>Trở lại</a>";
         exit;
     }
-
 
     //Kiểm tra email đã có người dùng chưa
     if (mysqli_num_rows(mysqli_query($conn, "SELECT email FROM users WHERE email='$email'"))) {
@@ -46,48 +39,48 @@ if (isset($_POST['txtUsername'])) {
 
     if ($result) {
         echo "<div class='container'>
-              <h3>You are registered successfully.</h3><br/>
-              <p class='link'>Click here to <a href='login.php'>Login</a></p>
+              <h3>Bạn đã đăng ký thành công</h3><br/>
+              <p class='link'>Click here to <a href='login.php'>Đăng nhập</a></p>
               </div>";
     } else {
-        echo "<div class='form'>
-                <h3>Required fields are missing.</h3><br/>
-                <p class='link'>Click here to <a href='registration.php'>registration</a> again.</p>
+        echo "<div class='container'>
+                <h3>Có lỗi gì đó xảy ra</h3><br/>
+                <p class='link'>Click here to <a href='registration.php'>Đăng ký</a> lại.</p>
                 </div>";
     }
 } else {
 ?>
 
-
     <div class="row m-5 w-25 mx-auto">
         <form action="" method="post">
             <div class="form-group">
-                <label for="InputUsername">Username *</label>
-                <input type="text" class="form-control" name="txtUsername" id="InputUsername" placeholder="Enter Username" required>
+                <label for="InputUsername">Tên đăng nhập *</label>
+                <input type="text" class="form-control" name="txtUsername" id="InputUsername" placeholder="Nhập tên đăng nhập" 
+                pattern="^[A-Za-z][A-Za-z0-9-]{2,25}$" required>
             </div>
             <div class="form-group">
-                <label for="Password">Password *</label>
-                <input type="password" class="form-control" name="txtPassword" id="Password" placeholder="Enter Password" 
+                <label for="Password">Mật khẩu *</label>
+                <input type="password" class="form-control" name="txtPassword" id="Password" placeholder="Tối thiểu 8 ký tự bao gồm chữ hoa, thường, số và ký tự" 
                 pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" required autocomplete="new-password">
             </div>
             <div class="form-group">
                 <label for="ConfirmPassword">Confirm Password *</label>
-                <input type="password" class="form-control" id="ConfirmPassword" placeholder="Confirm Password" required>
+                <input type="password" class="form-control" id="ConfirmPassword" placeholder="Nhập lại mật khẩu" required>
             </div>
             <div class="form-group">
                 <label for="Email">Email *</label>
-                <input type="email" class="form-control" name="txtEmail" id="Email" placeholder="Enter Email" required>
+                <input type="email" class="form-control" name="txtEmail" id="Email" placeholder="Nhập email" required>
             </div>
             <div class="form-group">
                 <label for="PhoneNumber">Phone Number</label>
-                <input type="tel" class="form-control" name="txtPhone" id="PhoneNumber" placeholder="Enter Phone Number" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+                <input type="tel" class="form-control" name="txtPhone" id="PhoneNumber" placeholder="Nhập số điện thoại" pattern="^(09|03|07|08|05)+([0-9]{8})$">
             </div>
             <div class="form-group">
                 <label for="Address">Address</label>
-                <input type="text" class="form-control" name="txtAddress" id="Address" placeholder="Enter Address">
+                <input type="text" class="form-control" name="txtAddress" id="Address" placeholder="Nhập địa chỉ">
             </div>
 
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
         </form>
     </div>
 

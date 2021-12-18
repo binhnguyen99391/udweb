@@ -19,26 +19,25 @@ if (isset($_POST['username'])) {
         // Redirect to user dashboard page
         header("Location: /udweb");
     } else {
-        echo "<div class='form'>
+        echo "<div class='container'>
                   <h3>Incorrect Username/password.</h3><br/>
                   <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
                   </div>";
     }
 } else {
 ?>
-
     <div class="row m-5 w-25 mx-auto">
         <form action="" method="post">
             <div class="form-group">
-                <label for="InputUsername">Username</label>
-                <input type="text" class="form-control" id="InputUsername" name="username" placeholder="Enter Username" required autocomplete="username">
+                <label for="InputUsername">Tên đăng nhập</label>
+                <input type="text" class="form-control" id="InputUsername" name="username" placeholder="Nhập tên đăng nhập" required autocomplete="username">
             </div>
             <div class="form-group">
-                <label for="Password">Password</label>
-                <input type="password" class="form-control" id="Password" name="password" placeholder="Enter Password" required autocomplete="new-password">
+                <label for="Password">Mật khẩu</label>
+                <input type="password" class="form-control" id="Password" name="password" placeholder="Nhập mật khẩu" required autocomplete="new-password">
             </div>
 
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Đăng nhập</button>
         </form>
     </div>
 <?php
