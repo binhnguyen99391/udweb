@@ -46,15 +46,15 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     <div class="row">
         <div class="col-md-12">
             <div class="page-header">
-                <h1>Delete Record</h1>
+                <h1>Xóa người dùng</h1>
             </div>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="alert alert-danger fade in">
                     <input type="hidden" name="id" value="<?php echo trim($_GET["id"]); ?>" />
-                    <p>Are you sure you want to delete this record?</p><br>
+                    <p>Bạn có chắc chắn muốn xóa người dùng này không?</p><br>
                     <p>
-                        <input type="submit" value="Yes" class="btn btn-danger">
-                        <a href="/udweb" class="btn btn-default">No</a>
+                        <input type="submit" value="Đồng ý" class="btn btn-danger">
+                        <a href="/udweb/users" class="btn btn-default">Hủy</a>
                     </p>
                 </div>
             </form>

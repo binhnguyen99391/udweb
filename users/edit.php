@@ -2,8 +2,8 @@
 <?php require_once("../libs/connection.php");
 
 // Xác định các biến và khởi tạo với các giá trị trống
-$name = $address = $salary = "";
-$name_err = $address_err = $salary_err = "";
+$username = $email = $phone = $address = "";
+$username_err = $email_err = $phone_err = $address_err = "";
 
 // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
@@ -11,13 +11,21 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     $id = $_POST["id"];
 
     // Xác thực tên
-    $input_name = trim($_POST["name"]);
-    if (empty($input_name)) {
-        $name_err = "Please enter a name.";
-    } elseif (!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $name_err = "Please enter a valid name.";
+    $input_username = trim($_POST["username"]);
+    if (empty($input_username)) {
+        $username_err = "Please enter a name.";
+    } elseif (!filter_var($input_username, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
+        $username_err = "Please enter a valid name.";
     } else {
-        $name = $input_name;
+        $username = $input_username;
+    }
+
+    // Xác thực địa chỉ email
+    $input_email = trim($_POST["email"]);
+    if (empty($input_email)) {
+        $email_err = "Please enter an email.";
+    } else {
+        $email = $input_email;
     }
 
     // Xác thực địa chỉ
@@ -28,33 +36,41 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         $address = $input_address;
     }
 
-    // Xác thực lương
-    $input_salary = trim($_POST["salary"]);
-    if (empty($input_salary)) {
-        $salary_err = "Please enter the salary amount.";
+    // Xác thực số đt
+    $input_phone = trim($_POST["phone"]);
+    if (empty($input_phone)) {
+        $phone_err = "Please enter the phone number.";
     } else {
-        $salary = $input_salary;
+        $phone = $input_phone;
     }
 
+    $role_id = trim($_POST['role']); 
+
     // Kiểm tra lỗi đầu vào trước khi chèn vào cơ sở dữ liệu
-    if (empty($name_err) && empty($address_err) && empty($salary_err)) {
+    if (empty($username_err) && empty($email_err) && empty($address_err) && empty($phone_err)) {
         // Chuẩn bị câu lệnh Update
-        $sql = "UPDATE users SET username=?, phone=?, address=? WHERE id=?";
+        $sql = "UPDATE users SET username=?, email=?, address=?, phone=?, role_id=? WHERE id=?";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             // Liên kết các biến với câu lệnh đã chuẩn bị
-            mysqli_stmt_bind_param($stmt, "sssi", $param_name, $param_address, $param_salary, $param_id);
+            mysqli_stmt_bind_param($stmt, "ssssii", $param_username, $param_email, $param_address, $param_phone, $param_role, $param_id);
 
             // Thiết lập tham số
-            $param_name = $name;
+            $param_username = $username;
+            $param_email = $email;
             $param_address = $address;
-            $param_salary = $salary;
+            $param_phone = $phone;
+            $param_role = $role_id;
             $param_id = $id;
 
             // Cố gắng thực thi câu lệnh đã chuẩn bị
             if (mysqli_stmt_execute($stmt)) {
+                //nếu là người dùng hiện tại thì thay đổi luôn Session
+                if ($id == $_SESSION['user_id']){
+                    $_SESSION['role_id'] = $role_id;
+                }
                 // Update thành công. Chuyển hướng đến trang đích
-                header("location: /udweb");
+                header("location: /udweb/users");
                 exit();
             } else {
                 echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
@@ -91,9 +107,11 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
                     // Lấy giá trị trường riêng lẻ
-                    $name = $row["username"];
-                    $address = $row["phone"];
-                    $salary = $row["address"];
+                    $username = $row["username"];
+                    $email = $row["email"];
+                    $address = $row["address"];
+                    $phone = $row["phone"];
+                    $role = $row['role_id'];
                 } else {
                     // URL không có id hợp lệ. Chuyển hướng đến trang error
                     header("location: error.php");
@@ -122,28 +140,39 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     <div class="row">
         <div class="col-md-12">
             <div class="page-header">
-                <h2>Update Record</h2>
+                <h2>Cập nhật thông tin</h2>
             </div>
-            <p>Please edit the input values and submit to update the record.</p>
+            <p>Chỉnh sửa giá trị đầu vào và nhấn Gửi để cập nhật thông tin.</p>
             <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
-                <div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
-                    <label>Name</label>
-                    <input type="text" name="name" class="form-control" value="<?php echo $name; ?>">
-                    <span class="help-block"><?php echo $name_err; ?></span>
+                <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                    <label>Tên đăng nhập</label>
+                    <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
+                    <span class="help-block"><?php echo $username_err; ?></span>
+                </div>
+                <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+                    <label>Email</label>
+                    <input type="text" name="email" class="form-control" value="<?php echo $email; ?>">
+                    <span class="help-block"><?php echo $email_err; ?></span>
+                </div>
+                <div class="form-group <?php echo (!empty($phone_err)) ? 'has-error' : ''; ?>">
+                    <label>Số điện thoại</label>
+                    <input type="text" name="phone" class="form-control" value="<?php echo $phone; ?>">
+                    <span class="help-block"><?php echo $phone_err; ?></span>
                 </div>
                 <div class="form-group <?php echo (!empty($address_err)) ? 'has-error' : ''; ?>">
-                    <label>Address</label>
+                    <label>Địa chỉ</label>
                     <textarea name="address" class="form-control"><?php echo $address; ?></textarea>
                     <span class="help-block"><?php echo $address_err; ?></span>
                 </div>
-                <div class="form-group <?php echo (!empty($salary_err)) ? 'has-error' : ''; ?>">
-                    <label>Salary</label>
-                    <input type="text" name="salary" class="form-control" value="<?php echo $salary; ?>">
-                    <span class="help-block"><?php echo $salary_err; ?></span>
-                </div>
+                <label>Vai trò</label><br/>
+                    <select name="role">
+                        <option <?php if ($role == 1) echo "selected=\"selected\"";  ?> value="1">Quản trị viên</option>
+                        <option <?php if ($role == 2) echo "selected=\"selected\"";  ?> value="2">Thủ thư</option>
+                        <option <?php if ($role == 3) echo "selected=\"selected\"";  ?> value="3">Người dùng</option>
+                    </select><br/><br/>
                 <input type="hidden" name="id" value="<?php echo $id; ?>" />
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <a href="index.php" class="btn btn-default">Cancel</a>
+                <input type="submit" class="btn btn-primary" value="Gửi">
+                <a href="index.php" class="btn btn-default">Hủy</a>
             </form>
         </div>
     </div>

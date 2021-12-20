@@ -1,13 +1,15 @@
 /* stylelint-disable selector-list-comma-newline-after */
+body, html {
+  font-size: 20px!important;
+}
 
 .blog-header {
-    line-height: 1;
     border-bottom: 1px solid #e5e5e5;
   }
   
   .blog-header-logo {
     font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
-    font-size: 4rem;
+    font-size: 3rem;
   }
   
   .blog-header-logo:hover {
@@ -93,9 +95,7 @@
    */
   .blog-footer {
     padding: 2.5rem 0;
-    color: #727272;
     text-align: center;
-    background-color: #f9f9f9;
     /* border-top: .05rem solid #e5e5e5; */
   }
   .blog-footer p:last-child {

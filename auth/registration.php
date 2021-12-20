@@ -7,9 +7,19 @@
 if (isset($_POST['txtUsername'])) {
 
     // Khai báo utf-8 để hiển thị được tiếng việt
+    
     header('Content-Type: text/html; charset=UTF-8');
 
     //Lấy dữ liệu từ file dangky.php
+    $name = [
+        "administrator", 
+        "support", 
+        "root", 
+        "postmaster",
+        "abuse", 
+        "webmaster",
+        "security"
+    ];
 
     $username = stripslashes($_REQUEST['txtUsername']);
     $username = mysqli_real_escape_string($conn, $username);
@@ -20,6 +30,14 @@ if (isset($_POST['txtUsername'])) {
 
     $phone   = addslashes($_POST['txtPhone']);
     $address   = stripslashes($_POST['txtAddress']);
+
+    //
+    if (in_array($username, $name)){
+        echo "<div class='container'>
+            Tên đăng nhập này bị cấm, mời chọn tên khác!!!
+            </div>";
+        exit;
+    }
 
     //Kiểm tra tên đăng nhập này đã có người dùng chưa
     if (mysqli_num_rows(mysqli_query($conn, "SELECT username FROM users WHERE username='$username'"))) {
@@ -40,12 +58,12 @@ if (isset($_POST['txtUsername'])) {
     if ($result) {
         echo "<div class='container'>
               <h3>Bạn đã đăng ký thành công</h3><br/>
-              <p class='link'>Click here to <a href='login.php'>Đăng nhập</a></p>
+              <p class='link'>Nhấn đây để <a href='login.php'>Đăng nhập</a></p>
               </div>";
     } else {
         echo "<div class='container'>
                 <h3>Có lỗi gì đó xảy ra</h3><br/>
-                <p class='link'>Click here to <a href='registration.php'>Đăng ký</a> lại.</p>
+                <p class='link'>Nhấn đây để <a href='registration.php'>Đăng ký</a> lại.</p>
                 </div>";
     }
 } else {
@@ -64,7 +82,7 @@ if (isset($_POST['txtUsername'])) {
                 pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" required autocomplete="new-password">
             </div>
             <div class="form-group">
-                <label for="ConfirmPassword">Confirm Password *</label>
+                <label for="ConfirmPassword">Xác nhận mật khẩu *</label>
                 <input type="password" class="form-control" id="ConfirmPassword" placeholder="Nhập lại mật khẩu" required>
             </div>
             <div class="form-group">
@@ -72,11 +90,11 @@ if (isset($_POST['txtUsername'])) {
                 <input type="email" class="form-control" name="txtEmail" id="Email" placeholder="Nhập email" required>
             </div>
             <div class="form-group">
-                <label for="PhoneNumber">Phone Number</label>
+                <label for="PhoneNumber">Số điện thoại</label>
                 <input type="tel" class="form-control" name="txtPhone" id="PhoneNumber" placeholder="Nhập số điện thoại" pattern="^(09|03|07|08|05)+([0-9]{8})$">
             </div>
             <div class="form-group">
-                <label for="Address">Address</label>
+                <label for="Address">Địa chỉ</label>
                 <input type="text" class="form-control" name="txtAddress" id="Address" placeholder="Nhập địa chỉ">
             </div>
 

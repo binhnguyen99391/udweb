@@ -1,12 +1,16 @@
-<?php include "../includes/header.php";?>
+<?php include "../includes/header.php"; ?>
 
-<?php include("../auth_session.php");?>
+<?php include("../auth_session.php"); ?>
 
-<?php require_once("../libs/connection.php"); ?>
+<?php
+require_once("../libs/connection.php");
+require_once("../checkPermission.php");
+if (checkPermission($conn, $_SESSION['role_id'], 4)) {
+?>
 
 <main class="container">
-  <a href="create.php" class="btn btn-success pull-right">Add New User</a>
-  <?php 
+  <a href="create.php" class="btn btn-success pull-right">Thêm người dùng</a>
+  <?php
   // Cố gắng thực thi truy vấn
   $sql = "SELECT * FROM users";
   if ($result = mysqli_query($conn, $sql)) {
@@ -15,10 +19,10 @@
       echo "<thead>";
       echo "<tr>";
       echo "<th>#</th>";
-      echo "<th>User Name</th>";
+      echo "<th>Tên đăng nhập</th>";
       echo "<th>Email</th>";
-      echo "<th>Phone</th>";
-      echo "<th>Action</th>";
+      echo "<th>Số điện thoại</th>";
+      echo "<th>Hành động</th>";
       echo "</tr>";
       echo "</thead>";
       echo "<tbody>";
@@ -29,8 +33,8 @@
         echo "<td>" . $row['email'] . "</td>";
         echo "<td>" . $row['phone'] . "</td>";
         echo "<td>";
-        echo "<a href='edit.php?id=" . $row['id'] ."' class='btn btn-secondary'><span class='glyphicon glyphicon-edit'></span></a>";
-        echo "<a href='delete.php?id=" . $row['id'] ."' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+        echo "<a href='edit.php?id=" . $row['id'] . "' class='btn btn-secondary'><span class='glyphicon glyphicon-edit'></span></a>";
+        echo "<a href='delete.php?id=" . $row['id'] . "' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
         echo "</td>";
         echo "</tr>";
       }
@@ -48,5 +52,9 @@
   ?>
 
 </main>
-
+<?php
+} else {
+  header('Location: ../403.php');
+}
+?>
 <?php include "../includes/footer.php" ?>

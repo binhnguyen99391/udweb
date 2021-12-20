@@ -1,7 +1,6 @@
 <?php include "../includes/header.php" ?>
 <?php require_once("../libs/connection.php"); ?>
 <?php
-
 // When form submitted, check and create user session.
 if (isset($_POST['username'])) {
     $username = stripslashes($_REQUEST['username']);    // removes backslashes
@@ -14,7 +13,10 @@ if (isset($_POST['username'])) {
     $result = mysqli_query($conn, $query) or die();
     $rows = mysqli_num_rows($result);
     if ($rows == 1) {
+        $data = mysqli_fetch_array($result);
         $_SESSION['username'] = $username;
+        $_SESSION['user_id'] = $data['id'];
+        $_SESSION['role_id'] = $data['role_id'];
         $_SESSION['loggedin'] = true;
         // Redirect to user dashboard page
         header("Location: /udweb");

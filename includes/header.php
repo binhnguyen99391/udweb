@@ -24,15 +24,15 @@
 
 <body>
   <div class="container">
-    <header class="blog-header py-3">
-      <div class=" flex-nowrap justify-content-between align-items-center">
+    <header class="blog-header">
+      <div class=" flex-nowrap justify-content-between align-items-center pt-1">
         <div class="text-center">
           <a class="blog-header-logo text-dark" href="/udweb">Xây Dựng Ứng Dụng Web</a>
         </div>
       </div>
     </header>
     <div class="nav-scroller py-1 mb-2">
-      <nav class="nav d-flex justify-content-between" style="font-size:20px">
+      <nav class="nav d-flex justify-content-between pt-2">
         <?php
         session_start();
 

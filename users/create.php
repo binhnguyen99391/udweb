@@ -33,7 +33,6 @@ if (isset($_POST['txtUsername'])) {
         exit;
     }
 
-
     //Kiểm tra email đã có người dùng chưa
     if (mysqli_num_rows(mysqli_query($conn, "SELECT email FROM users WHERE email='$email'"))) {
         echo "Email này đã có người dùng. Vui lòng chọn Email khác. <a href='javascript: history.go(-1)'>Trở lại</a>";
