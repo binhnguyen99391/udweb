@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 20, 2021 lúc 05:33 PM
+-- Thời gian đã tạo: Th12 21, 2021 lúc 05:43 PM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 7.3.31
 
@@ -114,8 +114,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `username`, `email`, `password`, `phone`, `address`) VALUES
-(10, 2, 'nguyentruongbinh', 'at140803@gmail.com', 'a18aec381b9088ecbd8820944419172e56c5454d', '0333160028', 'Hà Nội'),
-(20, 1, 'thuthu', 'thuthu@gmail.com', '0536413ab322fa63fafb1a84ab2c24cedb98d568', '0333160029', 'Hà Nội');
+(1, 1, 'nguyentruongbinh', 'at140803@gmail.com', 'a18aec381b9088ecbd8820944419172e56c5454d', '0333160028', 'Hà Nội'),
+(2, 2, 'thuthu', 'thuthu@gmail.com', '0536413ab322fa63fafb1a84ab2c24cedb98d568', '0333160029', 'Hà Nội'),
+(3, 3, 'nguoidung', 'nguoidung@gmail.com', 'a18aec381b9088ecbd8820944419172e56c5454d', '0333160027', 'Hải Dương');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -167,7 +168,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
