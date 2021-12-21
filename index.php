@@ -1,10 +1,7 @@
 <?php include "includes/header.php";?>
-
-<?php include("auth_session.php");?>
-
-<?php require_once("libs/connection.php"); 
-echo "role_id" .$_SESSION['role_id'];
-echo "user_id" .$_SESSION['user_id'];
+<?php
+include("auth_session.php");
+require_once("libs/connection.php"); 
 ?>
 
 <main class="container">

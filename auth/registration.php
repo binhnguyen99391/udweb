@@ -4,13 +4,8 @@
 <?php
 
 // Nếu không phải là sự kiện đăng ký thì không xử lý
-if (isset($_POST['txtUsername'])) {
+if (isset($_POST['username'])) {
 
-    // Khai báo utf-8 để hiển thị được tiếng việt
-    
-    header('Content-Type: text/html; charset=UTF-8');
-
-    //Lấy dữ liệu từ file dangky.php
     $name = [
         "administrator", 
         "support", 
@@ -21,33 +16,40 @@ if (isset($_POST['txtUsername'])) {
         "security"
     ];
 
-    $username = stripslashes($_REQUEST['txtUsername']);
+    $username = stripslashes($_POST['username']);
     $username = mysqli_real_escape_string($conn, $username);
-    $password = stripslashes($_REQUEST['txtPassword']);
+    $password = stripslashes($_POST['password']);
     $password = mysqli_real_escape_string($conn, $password);
-    $email = stripslashes($_REQUEST['txtEmail']);
+    $email = stripslashes($_POST['email']);
     $email = mysqli_real_escape_string($conn, $email);
 
-    $phone   = addslashes($_POST['txtPhone']);
-    $address   = stripslashes($_POST['txtAddress']);
+    $phone   = addslashes($_POST['phone']);
+    $address   = stripslashes($_POST['address']);
 
-    //
+    // Kiểm tra tên người dùng bị cấm
     if (in_array($username, $name)){
         echo "<div class='container'>
             Tên đăng nhập này bị cấm, mời chọn tên khác!!!
+            <a href='javascript: history.go(-1)'>Trở lại</a>
             </div>";
         exit;
     }
 
     //Kiểm tra tên đăng nhập này đã có người dùng chưa
     if (mysqli_num_rows(mysqli_query($conn, "SELECT username FROM users WHERE username='$username'"))) {
-        echo "Tên đăng nhập này đã có người dùng. Vui lòng chọn tên đăng nhập khác. <a href='javascript: history.go(-1)'>Trở lại</a>";
+        echo "<div class='container'>
+            <h3>Tên đăng nhập này đã có người dùng. Vui lòng chọn tên đăng nhập khác.</h3><br/>
+            <a href='javascript: history.go(-1)'>Trở lại</a>
+            </div>";
         exit;
     }
 
     //Kiểm tra email đã có người dùng chưa
     if (mysqli_num_rows(mysqli_query($conn, "SELECT email FROM users WHERE email='$email'"))) {
-        echo "Email này đã có người dùng. Vui lòng chọn Email khác. <a href='javascript: history.go(-1)'>Trở lại</a>";
+        echo "<div class='container'>
+            <h3>Email này đã có người dùng. Vui lòng chọn Email khác.</h3><br/>
+            <a href='javascript: history.go(-1)'>Trở lại</a>
+            </div>";
         exit;
     }
 
@@ -62,23 +64,23 @@ if (isset($_POST['txtUsername'])) {
               </div>";
     } else {
         echo "<div class='container'>
-                <h3>Có lỗi gì đó xảy ra</h3><br/>
-                <p class='link'>Nhấn đây để <a href='registration.php'>Đăng ký</a> lại.</p>
-                </div>";
+              <h3>Có lỗi gì đó xảy ra</h3><br/>
+              <p class='link'>Nhấn đây để <a href='registration.php'>Đăng ký</a> lại.</p>
+              </div>";
     }
 } else {
 ?>
 
-    <div class="row m-5 w-25 mx-auto">
+    <div class="m-5 w-25 mx-auto">
         <form action="" method="post">
             <div class="form-group">
-                <label for="InputUsername">Tên đăng nhập *</label>
-                <input type="text" class="form-control" name="txtUsername" id="InputUsername" placeholder="Nhập tên đăng nhập" 
+                <label for="Username">Tên đăng nhập *</label>
+                <input type="text" class="form-control" name="username" id="Username" placeholder="Nhập tên đăng nhập" 
                 pattern="^[A-Za-z][A-Za-z0-9-]{2,25}$" required>
             </div>
             <div class="form-group">
                 <label for="Password">Mật khẩu *</label>
-                <input type="password" class="form-control" name="txtPassword" id="Password" placeholder="Tối thiểu 8 ký tự bao gồm chữ hoa, thường, số và ký tự" 
+                <input type="password" class="form-control" name="password" id="Password" placeholder="Tối thiểu 8 ký tự bao gồm chữ hoa, thường, số và ký tự" 
                 pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" required autocomplete="new-password">
             </div>
             <div class="form-group">
@@ -87,15 +89,16 @@ if (isset($_POST['txtUsername'])) {
             </div>
             <div class="form-group">
                 <label for="Email">Email *</label>
-                <input type="email" class="form-control" name="txtEmail" id="Email" placeholder="Nhập email" required>
+                <input type="email" class="form-control" name="email" id="Email" placeholder="Nhập email" required>
             </div>
             <div class="form-group">
                 <label for="PhoneNumber">Số điện thoại</label>
-                <input type="tel" class="form-control" name="txtPhone" id="PhoneNumber" placeholder="Nhập số điện thoại" pattern="^(09|03|07|08|05)+([0-9]{8})$">
+                <input type="tel" class="form-control" name="phone" id="PhoneNumber" placeholder="Nhập số điện thoại" 
+                pattern="^(09|03|07|08|05)+([0-9]{8})$">
             </div>
             <div class="form-group">
                 <label for="Address">Địa chỉ</label>
-                <input type="text" class="form-control" name="txtAddress" id="Address" placeholder="Nhập địa chỉ">
+                <input type="text" class="form-control" name="address" id="Address" placeholder="Nhập địa chỉ">
             </div>
 
             <button type="submit" class="btn btn-primary">Đăng ký</button>
@@ -108,7 +111,7 @@ if (isset($_POST['txtUsername'])) {
 
         function validatePassword() {
             if (password.value != confirm_password.value) {
-                confirm_password.setCustomValidity("Passwords Don't Match");
+                confirm_password.setCustomValidity("Mật khẩu không trùng");
             } else {
                 confirm_password.setCustomValidity('');
             }

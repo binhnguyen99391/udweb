@@ -35,6 +35,8 @@
       <nav class="nav d-flex justify-content-between pt-2">
         <?php
         session_start();
+        // Khai báo utf-8 để hiển thị được tiếng việt
+        header('Content-Type: text/html; charset=UTF-8');
 
         if (isset($_SESSION["loggedin"]) == false) { ?>
           <a class="p-2 link-primary" href="registration.php">Đăng ký</a>

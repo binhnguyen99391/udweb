@@ -28,7 +28,7 @@ if (isset($_POST['inputEmail'])) {
             $headers = "From: binhnguyen9939@gmail.com" . "\r\n";
             if (mail($to_email, $subject, $body, $headers)) {
     
-                $query    = "UPDATE `users` set `password` = '" . md5($new_pass) . "' WHERE email= '$inputEmail'";
+                $query    = "UPDATE `users` set `password` = '" . sha1($new_pass) . "' WHERE email= '$inputEmail'";
                 $result = mysqli_query($conn, $query);
                 if ($result) {
                     echo "<div class='container'>
@@ -51,7 +51,7 @@ if (isset($_POST['inputEmail'])) {
     }    
 } else {
 ?>
-    <div class="row m-5 w-25 mx-auto">
+    <div class="m-5 w-25 mx-auto">
         <form action="" method="post">
             <div class="form-group">
                 <label for="InputUsername">Email *</label>

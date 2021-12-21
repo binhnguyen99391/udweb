@@ -18,10 +18,12 @@ if (checkPermission($conn, $_SESSION['role_id'], 4)) {
       echo "<table class='table table-bordered table-striped'>";
       echo "<thead>";
       echo "<tr>";
-      echo "<th>#</th>";
+      echo "<th>ID</th>";
       echo "<th>Tên đăng nhập</th>";
       echo "<th>Email</th>";
+      echo "<th>Vai trò</th>";
       echo "<th>Số điện thoại</th>";
+      echo "<th>Địa chỉ</th>";
       echo "<th>Hành động</th>";
       echo "</tr>";
       echo "</thead>";
@@ -31,7 +33,15 @@ if (checkPermission($conn, $_SESSION['role_id'], 4)) {
         echo "<td>" . $row['id'] . "</td>";
         echo "<td>" . $row['username'] . "</td>";
         echo "<td>" . $row['email'] . "</td>";
+        if ($row['role_id'] == 1){
+          echo "<td> Quản trị viên </td>";
+        } elseif ( $row['role_id'] == 2 ){
+          echo "<td> Thủ thư </td>";
+        } else {
+          echo "<td> Người dùng </td>";
+        }
         echo "<td>" . $row['phone'] . "</td>";
+        echo "<td>" . $row['address'] . "</td>";
         echo "<td>";
         echo "<a href='edit.php?id=" . $row['id'] . "' class='btn btn-secondary'><span class='glyphicon glyphicon-edit'></span></a>";
         echo "<a href='delete.php?id=" . $row['id'] . "' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
@@ -48,7 +58,6 @@ if (checkPermission($conn, $_SESSION['role_id'], 4)) {
   } else {
     echo "ERROR: Không thể thực thi $sql. " . mysqli_error($conn);
   }
-
   ?>
 
 </main>

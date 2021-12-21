@@ -3,9 +3,9 @@
 <?php
 // When form submitted, check and create user session.
 if (isset($_POST['username'])) {
-    $username = stripslashes($_REQUEST['username']);    // removes backslashes
+    $username = stripslashes($_POST['username']);    // removes backslashes
     $username = mysqli_real_escape_string($conn, $username);
-    $password = stripslashes($_REQUEST['password']);
+    $password = stripslashes($_POST['password']);
     $password = mysqli_real_escape_string($conn, $password);
     // Check user is exist in the database
     $query    = "SELECT * FROM `users` WHERE username='$username'
@@ -22,13 +22,13 @@ if (isset($_POST['username'])) {
         header("Location: /udweb");
     } else {
         echo "<div class='container'>
-                  <h3>Incorrect Username/password.</h3><br/>
-                  <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
-                  </div>";
+                <h3>Kiểm tra lại thông tin</h3><br/>
+                <p class='link'>Nhấn <a href='login.php'>đây</a> để quay lại.</p>
+              </div>";
     }
 } else {
 ?>
-    <div class="row m-5 w-25 mx-auto">
+    <div class="m-5 w-25 mx-auto">
         <form action="" method="post">
             <div class="form-group">
                 <label for="InputUsername">Tên đăng nhập</label>

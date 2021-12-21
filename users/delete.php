@@ -4,49 +4,52 @@ require_once("../libs/connection.php");
 ?>
 
 <?php
+require_once("../checkPermission.php");
+if (checkPermission($conn, $_SESSION['role_id'], 3)) {
+
 // Quy trình xóa bản ghi sau khi đã xác nhận
-if (isset($_POST["id"]) && !empty($_POST["id"])) {
+    if (isset($_POST["id"]) && !empty($_POST["id"])) {
 
-    // Chuẩn bị câu lệnh delete
-    $sql = "DELETE FROM users WHERE id = ?";
+        // Chuẩn bị câu lệnh delete
+        $sql = "DELETE FROM users WHERE id = ?";
 
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-        // Liên kết các biến với câu lệnh đã chuẩn bị
-        mysqli_stmt_bind_param($stmt, "i", $param_id);
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Liên kết các biến với câu lệnh đã chuẩn bị
+            mysqli_stmt_bind_param($stmt, "i", $param_id);
 
-        // Thiết lập tham số
-        $param_id = trim($_POST["id"]);
+            // Thiết lập tham số
+            $param_id = trim($_POST["id"]);
 
-        // Cố gắng thực thi câu lệnh đã chuẩn bị
-        if (mysqli_stmt_execute($stmt)) {
-            // Xóa bản ghi thành công. Chuyển hướng đến trang đích
-            header("location: /udweb");
+            // Cố gắng thực thi câu lệnh đã chuẩn bị
+            if (mysqli_stmt_execute($stmt)) {
+                // Xóa bản ghi thành công. Chuyển hướng đến trang đích
+                header("location: /udweb/users");
+                exit();
+            } else {
+                echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
+            }
+        }
+
+        // Đóng câu lệnh
+        mysqli_stmt_close($stmt);
+
+        // Đóng kết nối
+        mysqli_close($conn);
+    } else {
+        // Kiểm tra sự tồn tại của tham số id
+        if (empty(trim($_GET["id"]))) {
+            // URL không chứa tham số id. Chuyển hướng đén trang error
+            header("location: error.php");
             exit();
-        } else {
-            echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
         }
     }
-
-    // Đóng câu lệnh
-    mysqli_stmt_close($stmt);
-
-    // Đóng kết nối
-    mysqli_close($conn);
-} else {
-    // Kiểm tra sự tồn tại của tham số id
-    if (empty(trim($_GET["id"]))) {
-        // URL không chứa tham số id. Chuyển hướng đén trang error
-        header("location: error.php");
-        exit();
-    }
-}
 ?>
 
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="page-header">
-                <h1>Xóa người dùng</h1>
+                <h2>Xóa người dùng</h2>
             </div>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="alert alert-danger fade in">
@@ -61,5 +64,9 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         </div>
     </div>
 </div>
-
+<?php
+} else {
+  header('Location: ../403.php');
+}
+?>
 <?php include "../includes/footer.php" ?>
