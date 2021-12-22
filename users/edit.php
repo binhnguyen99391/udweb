@@ -20,7 +20,8 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             // Liên kết các biến với câu lệnh đã chuẩn bị
-            mysqli_stmt_bind_param($stmt, "ssssii", $param_username, $param_email, $param_address, $param_phone, $param_role, $param_id);
+            mysqli_stmt_bind_param($stmt, "ssssii", 
+            $param_username, $param_email, $param_address, $param_phone, $param_role, $param_id);
 
             // Thiết lập tham số
             $param_username = $username;
@@ -40,11 +41,9 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
                 header("location: /udweb/users");
                 exit();
             } else {
-                echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
+                echo "Vui lòng thử lại.";
             }
         }
-        // Đóng két nối
-        mysqli_close($conn);
     } else {
         // Kiểm tra sự tồn tại của tham số id trước khi xử lý thêm
         if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
@@ -76,13 +75,12 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
                         $role = $row['role_id'];
                     }
                 } else {
-                    echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
+                    echo "Vui lòng thử lại.";
                 }
             }
-            // Đóng kết nối
-            mysqli_close($conn);
         } else {
             // URL không chứa tham số id.
+            header("location: ../error.php");
             exit();
         }
     }

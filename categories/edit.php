@@ -27,11 +27,9 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
                 header("location: /udweb/categories");
                 exit();
             } else {
-                echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
+                echo "Vui lòng thử lại.";
             }
         }
-        // Đóng két nối
-        mysqli_close($conn);
     } else {
         // Kiểm tra sự tồn tại của tham số id trước khi xử lý thêm
         if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
@@ -59,11 +57,12 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
                         $name = $row["name"];
                     }
                 } else {
-                    echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
+                    echo "Vui lòng thử lại.";
                 }
             }
         } else {
             // URL không chứa tham số id.
+            header("location: ../error.php");
             exit();
         }
     }

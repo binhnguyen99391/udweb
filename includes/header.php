@@ -48,7 +48,7 @@
           <a class="p-2 link-primary" href="http://localhost:5/udweb/books">Quản lý sách</a>
           <a class="p-2 link-primary" href="http://localhost:5/udweb/categories">Quản lý thể loại</a>
           <a class="p-2 link-primary" href="http://localhost:5/udweb/changePass.php">Đổi mật khẩu</a>
-          <a class="p-2 link-primary" href="http://localhost:5/udweb/logout.php">Đăng xuất</a>
+          <a class="p-2 link-primary" href="http://localhost:5/udweb/auth/logout.php">Đăng xuất</a>
         <?php } ?>
       </nav>
     </div>

@@ -16,7 +16,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 7)) {
             header("location: /udweb/categories");
             exit();
         } else {
-            echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
+            echo "Vui lòng thử lại.";
         }
     } else {
         // Kiểm tra sự tồn tại của tham số id
