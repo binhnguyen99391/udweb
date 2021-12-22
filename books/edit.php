@@ -2,7 +2,7 @@
 <?php require_once("../libs/connection.php");
 
 require_once("../checkPermission.php");
-if (checkPermission($conn, $_SESSION['role_id'], 2)) {
+if (checkPermission($conn, $_SESSION['role_id'], 6)) {
     echo $_GET['id'];
 
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
@@ -10,35 +10,29 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
         // Lấy dữ liệu đầu vào
         $id = $_GET["id"];
 
-        $username = trim($_POST["username"]);
-        $email = trim($_POST["email"]);
-        $address = trim($_POST["address"]);
-        $phone = trim($_POST["phone"]);
-        $role_id = trim($_POST['role']);
+        $name = trim($_POST["name"]);
+        $author = trim($_POST["author"]);
+        $quantily = trim($_POST["quantily"]);
+        $category = trim($_POST["category"]);
 
         // Chuẩn bị câu lệnh Update
-        $sql = "UPDATE users SET username=?, email=?, address=?, phone=?, role_id=? WHERE id=?";
+        $sql = "UPDATE books SET name=?, author=?, category_id=?, quantily=? WHERE id=?";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             // Liên kết các biến với câu lệnh đã chuẩn bị
-            mysqli_stmt_bind_param($stmt, "ssssii", $param_username, $param_email, $param_address, $param_phone, $param_role, $param_id);
+            mysqli_stmt_bind_param($stmt, "ssiii", $param_name, $param_author, $param_category_id, $param_quantily, $param_id);
 
             // Thiết lập tham số
-            $param_username = $username;
-            $param_email = $email;
-            $param_address = $address;
-            $param_phone = $phone;
-            $param_role = $role_id;
+            $param_name = $name;
+            $param_author = $author;
+            $param_quantily = $quantily;
+            $param_category_id =$category;
             $param_id = $id;
 
             // Cố gắng thực thi câu lệnh đã chuẩn bị
             if (mysqli_stmt_execute($stmt)) {
-                //nếu là người dùng hiện tại thì thay đổi luôn Session
-                if ($id == $_SESSION['user_id']) {
-                    $_SESSION['role_id'] = $role_id;
-                }
                 // Update thành công. Chuyển hướng đến trang đích
-                header("location: /udweb/users");
+                header("location: /udweb/books");
                 exit();
             } else {
                 echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
@@ -53,7 +47,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
             $id =  trim($_GET["id"]);
 
             // Chuẩn bị câu lệnh select
-            $sql = "SELECT * FROM users WHERE id = ?";
+            $sql = "SELECT * FROM books WHERE id = ?";
             if ($stmt = mysqli_prepare($conn, $sql)) {
                 // Liên kết các biến với câu lệnh đã chuẩn bị
                 mysqli_stmt_bind_param($stmt, "i", $param_id);
@@ -70,18 +64,15 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
                         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
                         // Lấy giá trị trường riêng lẻ
-                        $username = $row["username"];
-                        $email = $row["email"];
-                        $address = $row["address"];
-                        $phone = $row["phone"];
-                        $role = $row['role_id'];
+                        $name = $row["name"];
+                        $author = $row["author"];
+                        $quantily = $row["quantily"];
+                        $category = $row["category_id"];
                     }
                 } else {
                     echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
                 }
             }
-            // Đóng kết nối
-            mysqli_close($conn);
         } else {
             // URL không chứa tham số id.
             exit();
@@ -93,38 +84,48 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
         <div class="row">
             <div class="col-md-12">
                 <div class="page-header">
-                    <h2>Cập nhật thông tin</h2>
+                    <h2>Cập nhật thông tin sách</h2>
                 </div>
                 <p>Chỉnh sửa giá trị đầu vào và nhấn Xác nhận để cập nhật thông tin.</p>
                 <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                     <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                        <label>Tên đăng nhập</label>
-                        <input type="text" name="username" class="form-control" value="<?php echo $username; ?>" pattern="^[A-Za-z][A-Za-z0-9-]{2,25}$" required>
+                        <label>Tên sách</label>
+                        <input type="text" name="name" class="form-control" value="<?php echo $name; ?>" required>
                         <span class="help-block"></span>
                     </div>
                     <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
-                        <label>Email</label>
-                        <input type="email" name="email" class="form-control" value="<?php echo $email; ?>" required>
+                        <label>Tác giả</label>
+                        <input type="text" name="author" class="form-control" value="<?php echo $author; ?>" required>
                         <span class="help-block"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Category">Thể loại *</label>
+                        <select name="category" class="form-control w-50"> 
+                        <?php 
+                        $sql = "SELECT * FROM categories";
+                        if ($result = mysqli_query($conn, $sql)){
+                            while ($row = mysqli_fetch_array($result)){ 
+                                if($row['id'] == $category){ ?>
+                                    <option selected value="<?php echo $row['id']; ?>">
+                                    <?php echo $row['name']; ?>
+                                <?php } else {?>
+                                    <option value="<?php echo $row['id']; ?>">
+                                    <?php echo $row['name']; ?>
+                                <?php } ?>
+                            </option>
+                            <?php
+                            }
+                        }
+                        ?>
+                        </select>
                     </div>
                     <div class="form-group <?php echo (!empty($phone_err)) ? 'has-error' : ''; ?>">
-                        <label>Số điện thoại</label>
-                        <input type="text" name="phone" class="form-control" value="<?php echo $phone; ?>">
+                        <label>Số lượng</label>
+                        <input type="text" name="quantily" class="form-control" value="<?php echo $quantily; ?>">
                         <span class="help-block"></span>
                     </div>
-                    <div class="form-group <?php echo (!empty($address_err)) ? 'has-error' : ''; ?>">
-                        <label>Địa chỉ</label>
-                        <textarea name="address" class="form-control"><?php echo $address; ?></textarea>
-                        <span class="help-block"></span>
-                    </div>
-                    <label>Vai trò</label><br>
-                    <select name="role" class="form-control w-25">
-                        <option <?php if ($role == 1) echo "selected=\"selected\"";  ?> value="1">Quản trị viên</option>
-                        <option <?php if ($role == 2) echo "selected=\"selected\"";  ?> value="2">Thủ thư</option>
-                        <option <?php if ($role == 3) echo "selected=\"selected\"";  ?> value="3">Người dùng</option>
-                    </select><br>
                     <input type="submit" name="btn_submit" class="btn btn-primary" value="Xác nhận">
-                    <a href="index.php" class="btn btn-default">Hủy bỏ</a>
+                    <a href="index.php" class="btn btn-default">Hủy</a>
                 </form>
             </div>
         </div>
