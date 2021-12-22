@@ -4,13 +4,13 @@
 <?php
 require_once("../checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 5)) {
-    
+
     // Nếu không phải là sự kiện đăng ký thì không xử lý
     if (isset($_POST['btn_submit'])) {
         $name = stripslashes($_POST['name']);
-        
+
         $author = stripslashes($_POST['author']);
-        
+
         $category = stripslashes($_POST['category']);
 
         $quantily = stripslashes($_POST['quantily']);
@@ -41,52 +41,52 @@ if (checkPermission($conn, $_SESSION['role_id'], 5)) {
         }
     } else {
 ?>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="page-header">
-                <h2>Thêm sách mới</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h2>Thêm sách mới</h2>
+                    </div>
+                    <p>Nhập các giá trị để tạo mới 1 quyển sách.</p>
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <label for="Name">Tên sách*</label>
+                            <input type="text" class="form-control" name="name" id="Name" placeholder="Nhập tên sách" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Author">Tác giả *</label>
+                            <input type="text" class="form-control" name="author" id="Author" placeholder="Nhập tên tác giả" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Category">Thể loại *</label>
+                            <select name="category" class="form-control w-50">
+                                <?php
+                                $sql = "SELECT * FROM categories";
+                                if ($result = mysqli_query($conn, $sql)) {
+                                    while ($row = mysqli_fetch_array($result)) { ?>
+                                        <option value="<?php echo $row['id']; ?>">
+                                            <?php echo $row['name']; ?>
+                                        </option>
+                                <?php
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Quantily">Số lượng *</label>
+                            <input type="text" class="form-control" name="quantily" id="Quantily" placeholder="Nhập Email" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="btn_submit">Xác nhận</button>
+                        <a href="index.php" class="btn btn-default">Hủy bỏ</a>
+                    </form>
+                </div>
             </div>
-            <p>Nhập các giá trị để tạo mới 1 quyển sách.</p>
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="Name">Tên sách*</label>
-                    <input type="text" class="form-control" name="name" id="Name" placeholder="Nhập tên sách" required>
-                </div>
-                <div class="form-group">
-                    <label for="Author">Tác giả *</label>
-                    <input type="text" class="form-control" name="author" id="Author" placeholder="Nhập tên tác giả" required>
-                </div>
-                <div class="form-group">
-                    <label for="Category">Thể loại *</label>
-                    <select name="category" class="form-control w-50"> 
-                    <?php 
-                    $sql = "SELECT * FROM categories";
-                    if ($result = mysqli_query($conn, $sql)){
-                        while ($row = mysqli_fetch_array($result)){ ?>
-                            <option value="<?php echo $row['id']; ?>">
-                            <?php echo $row['name']; ?>
-                        </option>
-                        <?php
-                        }
-                    }
-                    ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="Quantily">Số lượng *</label>
-                    <input type="text" class="form-control" name="quantily" id="Quantily" placeholder="Nhập Email" required>
-                </div>
-                <button type="submit" class="btn btn-primary" name="btn_submit">Xác nhận</button>
-                <a href="index.php" class="btn btn-default">Hủy bỏ</a>
-            </form>
         </div>
-    </div>
-</div>
 <?php
     }
 } else {
-  header('Location: ../403.php');
+    header('Location: ../403.php');
 }
 ?>
 <?php include "../includes/footer.php" ?>

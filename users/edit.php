@@ -6,7 +6,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
     echo $_GET['id'];
 
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
-    if ( isset($_POST["btn_submit"]) ) {
+    if (isset($_POST["btn_submit"])) {
         // Lấy dữ liệu đầu vào
         $id = $_GET["id"];
 
@@ -97,22 +97,22 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
                 </div>
                 <p>Chỉnh sửa giá trị đầu vào và nhấn Xác nhận để cập nhật thông tin.</p>
                 <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
-                    <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                    <div class="form-group">
                         <label>Tên đăng nhập</label>
                         <input type="text" name="username" class="form-control" value="<?php echo $username; ?>" pattern="^[A-Za-z][A-Za-z0-9-]{2,25}$" required>
                         <span class="help-block"></span>
                     </div>
-                    <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+                    <div class="form-group">
                         <label>Email</label>
                         <input type="email" name="email" class="form-control" value="<?php echo $email; ?>" required>
                         <span class="help-block"></span>
                     </div>
-                    <div class="form-group <?php echo (!empty($phone_err)) ? 'has-error' : ''; ?>">
+                    <div class="form-group">
                         <label>Số điện thoại</label>
                         <input type="text" name="phone" class="form-control" value="<?php echo $phone; ?>">
                         <span class="help-block"></span>
                     </div>
-                    <div class="form-group <?php echo (!empty($address_err)) ? 'has-error' : ''; ?>">
+                    <div class="form-group">
                         <label>Địa chỉ</label>
                         <textarea name="address" class="form-control"><?php echo $address; ?></textarea>
                         <span class="help-block"></span>

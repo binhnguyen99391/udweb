@@ -11,8 +11,6 @@ if (checkPermission($conn, $_SESSION['role_id'], 3)) {
         $id = $_GET['id'];
         // Chuẩn bị câu lệnh delete
         $query = "DELETE FROM users WHERE id = $id";
-
-
         $result   = mysqli_query($conn, $query);
         if ($result) {
             header("location: /udweb/users");

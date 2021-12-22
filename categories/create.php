@@ -4,11 +4,11 @@
 <?php
 require_once("../checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 5)) {
-    
+
     // Nếu không phải là sự kiện đăng ký thì không xử lý
     if (isset($_POST['btn_submit'])) {
         $name = stripslashes($_POST['name']);
-        
+
         //Kiểm tra tên sách này đã có chưa
         if (mysqli_num_rows(mysqli_query($conn, "SELECT name FROM categories WHERE name='$name'"))) {
             echo "<div class='container'>
@@ -34,28 +34,28 @@ if (checkPermission($conn, $_SESSION['role_id'], 5)) {
         }
     } else {
 ?>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="page-header">
-                <h2>Thêm thể loại mới</h2>
-            </div>
-            <p>Nhập các giá trị để tạo mới 1 thể loại sách.</p>
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="Name">Tên thể loại*</label>
-                    <input type="text" class="form-control" name="name" id="Name" placeholder="Nhập tên sách" required>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h2>Thêm thể loại mới</h2>
+                    </div>
+                    <p>Nhập các giá trị để tạo mới 1 thể loại sách.</p>
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <label for="Name">Tên thể loại*</label>
+                            <input type="text" class="form-control" name="name" id="Name" placeholder="Nhập tên sách" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="btn_submit">Xác nhận</button>
+                        <a href="index.php" class="btn btn-default">Hủy bỏ</a>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary" name="btn_submit">Xác nhận</button>
-                <a href="index.php" class="btn btn-default">Hủy bỏ</a>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
 <?php
     }
 } else {
-  header('Location: ../403.php');
+    header('Location: ../403.php');
 }
 ?>
 <?php include "../includes/footer.php" ?>

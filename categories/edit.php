@@ -6,12 +6,12 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
     echo $_GET['id'];
 
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
-    if ( isset($_POST["btn_submit"]) ) {
+    if (isset($_POST["btn_submit"])) {
         // Lấy dữ liệu đầu vào
         $id = $_GET["id"];
 
         $name = trim($_POST["name"]);
-        
+
         // Chuẩn bị câu lệnh Update
         $sql = "UPDATE categories SET name=? WHERE id=?";
 

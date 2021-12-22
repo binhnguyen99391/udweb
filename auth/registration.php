@@ -7,11 +7,11 @@
 if (isset($_POST['btn_submit'])) {
 
     $name = [
-        "administrator", 
-        "support", 
-        "root", 
+        "administrator",
+        "support",
+        "root",
         "postmaster",
-        "abuse", 
+        "abuse",
         "webmaster",
         "security"
     ];
@@ -27,7 +27,7 @@ if (isset($_POST['btn_submit'])) {
     $address   = stripslashes($_POST['address']);
 
     // Kiểm tra tên người dùng bị cấm
-    if (in_array($username, $name)){
+    if (in_array($username, $name)) {
         echo "<div class='container'>
             Tên đăng nhập này bị cấm, mời chọn tên khác!!!
             <a href='javascript: history.go(-1)'>Trở lại</a>
@@ -75,13 +75,11 @@ if (isset($_POST['btn_submit'])) {
         <form action="" method="post">
             <div class="form-group">
                 <label for="Username">Tên đăng nhập *</label>
-                <input type="text" class="form-control" name="username" id="Username" placeholder="Nhập tên đăng nhập" 
-                pattern="^[A-Za-z][A-Za-z0-9-]{2,25}$" required>
+                <input type="text" class="form-control" name="username" id="Username" placeholder="Nhập tên đăng nhập" pattern="^[A-Za-z][A-Za-z0-9-]{2,25}$" required>
             </div>
             <div class="form-group">
                 <label for="Password">Mật khẩu *</label>
-                <input type="password" class="form-control" name="password" id="Password" placeholder="Tối thiểu 8 ký tự bao gồm chữ hoa, thường, số và ký tự" 
-                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" required autocomplete="new-password">
+                <input type="password" class="form-control" name="password" id="Password" placeholder="Tối thiểu 8 ký tự bao gồm chữ hoa, thường, số và ký tự" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" required autocomplete="new-password">
             </div>
             <div class="form-group">
                 <label for="ConfirmPassword">Xác nhận mật khẩu *</label>
@@ -93,8 +91,7 @@ if (isset($_POST['btn_submit'])) {
             </div>
             <div class="form-group">
                 <label for="PhoneNumber">Số điện thoại</label>
-                <input type="tel" class="form-control" name="phone" id="PhoneNumber" placeholder="Nhập số điện thoại" 
-                pattern="^(09|03|07|08|05)+([0-9]{8})$">
+                <input type="tel" class="form-control" name="phone" id="PhoneNumber" placeholder="Nhập số điện thoại" pattern="^(09|03|07|08|05)+([0-9]{8})$">
             </div>
             <div class="form-group">
                 <label for="Address">Địa chỉ</label>

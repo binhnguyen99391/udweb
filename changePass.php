@@ -1,7 +1,7 @@
 <?php include "includes/header.php" ?>
-<?php 
+<?php
 include("auth_session.php");
-require_once("libs/connection.php"); 
+require_once("libs/connection.php");
 ?>
 
 <?php

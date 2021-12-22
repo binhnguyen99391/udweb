@@ -6,7 +6,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
     echo $_GET['id'];
 
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
-    if ( isset($_POST["btn_submit"]) ) {
+    if (isset($_POST["btn_submit"])) {
         // Lấy dữ liệu đầu vào
         $id = $_GET["id"];
 
@@ -26,7 +26,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
             $param_name = $name;
             $param_author = $author;
             $param_quantily = $quantily;
-            $param_category_id =$category;
+            $param_category_id = $category;
             $param_id = $id;
 
             // Cố gắng thực thi câu lệnh đã chuẩn bị
@@ -100,23 +100,23 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
                     </div>
                     <div class="form-group">
                         <label for="Category">Thể loại *</label>
-                        <select name="category" class="form-control w-50"> 
-                        <?php 
-                        $sql = "SELECT * FROM categories";
-                        if ($result = mysqli_query($conn, $sql)){
-                            while ($row = mysqli_fetch_array($result)){ 
-                                if($row['id'] == $category){ ?>
-                                    <option selected value="<?php echo $row['id']; ?>">
-                                    <?php echo $row['name']; ?>
-                                <?php } else {?>
-                                    <option value="<?php echo $row['id']; ?>">
-                                    <?php echo $row['name']; ?>
-                                <?php } ?>
-                            </option>
+                        <select name="category" class="form-control w-50">
                             <?php
+                            $sql = "SELECT * FROM categories";
+                            if ($result = mysqli_query($conn, $sql)) {
+                                while ($row = mysqli_fetch_array($result)) {
+                                    if ($row['id'] == $category) { ?>
+                                        <option selected value="<?php echo $row['id']; ?>">
+                                            <?php echo $row['name']; ?>
+                                        <?php } else { ?>
+                                        <option value="<?php echo $row['id']; ?>">
+                                            <?php echo $row['name']; ?>
+                                        <?php } ?>
+                                        </option>
+                                <?php
+                                }
                             }
-                        }
-                        ?>
+                                ?>
                         </select>
                     </div>
                     <div class="form-group <?php echo (!empty($phone_err)) ? 'has-error' : ''; ?>">

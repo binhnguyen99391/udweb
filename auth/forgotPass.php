@@ -10,7 +10,7 @@ if (isset($_POST['btn_submit'])) {
         exit;
     }
     $secretKey = "6LdjCZMcAAAAAOInAGk20QYv63YK4l3twrAul-De";
-    
+
     // post request to server
     $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
     $response = file_get_contents($url);
@@ -21,13 +21,13 @@ if (isset($_POST['btn_submit'])) {
 
         if ($inputEmail == $email[0]) {
             $new_pass = bin2hex(random_bytes(8));
-    
+
             $to_email = "$inputEmail";
             $subject = "Mật khẩu mới";
             $body = "Xin chào, mật khẩu mới của bạn ở site:XDUDWEB là $new_pass";
             $headers = "From: binhnguyen9939@gmail.com" . "\r\n";
             if (mail($to_email, $subject, $body, $headers)) {
-    
+
                 $query    = "UPDATE `users` set `password` = '" . sha1($new_pass) . "' WHERE email= '$inputEmail'";
                 $result = mysqli_query($conn, $query);
                 if ($result) {
@@ -48,7 +48,7 @@ if (isset($_POST['btn_submit'])) {
         }
     } else {
         echo 'You are spammer ! Get the @$%K out';
-    }    
+    }
 } else {
 ?>
     <div class="m-5 w-25 mx-auto">
@@ -69,7 +69,7 @@ if (isset($_POST['btn_submit'])) {
     window.onload = function() {
         var $recaptcha = document.querySelector('#g-recaptcha-response');
 
-        if($recaptcha) {
+        if ($recaptcha) {
             $recaptcha.setAttribute("required", "required");
         }
     };
