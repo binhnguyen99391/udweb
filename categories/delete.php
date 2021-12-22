@@ -7,12 +7,10 @@ if (checkPermission($conn, $_SESSION['role_id'], 7)) {
 
     // Quy trình xóa bản ghi sau khi đã xác nhận
     if (isset($_POST["btn_submit"])) {
-
-        $id = $_GET['id'];
+        $id = trim($_GET['id']);
+        
         // Chuẩn bị câu lệnh delete
         $query = "DELETE FROM categories WHERE id = $id";
-
-
         $result   = mysqli_query($conn, $query);
         if ($result) {
             header("location: /udweb/categories");
@@ -24,12 +22,11 @@ if (checkPermission($conn, $_SESSION['role_id'], 7)) {
         // Kiểm tra sự tồn tại của tham số id
         if (empty(trim($_GET["id"]))) {
             // URL không chứa tham số id. Chuyển hướng đén trang error
-            header("location: error.php");
+            header("location: ../error.php");
             exit();
         }
     }
 ?>
-
     <div class="container">
         <div class="row">
             <div class="col-md-12">

@@ -9,7 +9,6 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
     if (isset($_POST["btn_submit"])) {
         // Lấy dữ liệu đầu vào
         $id = $_GET["id"];
-
         $username = trim($_POST["username"]);
         $email = trim($_POST["email"]);
         $address = trim($_POST["address"]);
@@ -99,7 +98,8 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
                 <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                     <div class="form-group">
                         <label>Tên đăng nhập</label>
-                        <input type="text" name="username" class="form-control" value="<?php echo $username; ?>" pattern="^[A-Za-z][A-Za-z0-9-]{2,25}$" required>
+                        <input type="text" name="username" class="form-control" value="<?php echo $username; ?>" 
+                        pattern="^[A-Za-z][A-Za-z0-9-]{2,25}$" required>
                         <span class="help-block"></span>
                     </div>
                     <div class="form-group">
@@ -109,7 +109,8 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
                     </div>
                     <div class="form-group">
                         <label>Số điện thoại</label>
-                        <input type="text" name="phone" class="form-control" value="<?php echo $phone; ?>">
+                        <input type="text" name="phone" class="form-control" value="<?php echo $phone; ?>"
+                        pattern="^(09|03|07|08|05)+([0-9]{8})$">
                         <span class="help-block"></span>
                     </div>
                     <div class="form-group">

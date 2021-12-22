@@ -24,9 +24,10 @@ if (checkPermission($conn, $_SESSION['role_id'], 8)) {
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
+        $i=1;
         while ($row = mysqli_fetch_array($result)) {
           echo "<tr>";
-          echo "<td>" . $row['id'] . "</td>";
+          echo "<td>" . $i++ . "</td>";
           echo "<td>" . $row['name'] . "</td>";
           echo "<td>";
           echo "<a href='edit.php?id=" . $row['id'] . "' class='btn btn-secondary'><span class='glyphicon glyphicon-edit'></span></a>";

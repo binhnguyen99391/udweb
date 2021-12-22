@@ -7,7 +7,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 5)) {
 
     // Nếu không phải là sự kiện đăng ký thì không xử lý
     if (isset($_POST['btn_submit'])) {
-        $name = stripslashes($_POST['name']);
+        $name = trim($_POST['name']);
 
         //Kiểm tra tên sách này đã có chưa
         if (mysqli_num_rows(mysqli_query($conn, "SELECT name FROM categories WHERE name='$name'"))) {

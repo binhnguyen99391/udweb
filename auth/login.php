@@ -3,12 +3,10 @@
 <?php
 // When form submitted, check and create user session.
 if (isset($_POST['btn_submit'])) {
-    $username = stripslashes($_POST['username']);    // removes backslashes
-    $username = mysqli_real_escape_string($conn, $username);
-    $password = stripslashes($_POST['password']);
-    $password = mysqli_real_escape_string($conn, $password);
-    // Check user is exist in the database
-    $query    = "SELECT * FROM `users` WHERE username='$username'
+    $username = trim($_POST['username']);    // removes backslashes
+    $password = trim($_POST['password']);
+
+    $query    = "SELECT * FROM users WHERE username='$username'
                      AND password='" . sha1($password) . "'";
     $result = mysqli_query($conn, $query) or die();
     $rows = mysqli_num_rows($result);
@@ -18,6 +16,7 @@ if (isset($_POST['btn_submit'])) {
         $_SESSION['user_id'] = $data['id'];
         $_SESSION['role_id'] = $data['role_id'];
         $_SESSION['loggedin'] = true;
+        
         // Redirect to user dashboard page
         header("Location: /udweb");
     } else {

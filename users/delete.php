@@ -7,11 +7,12 @@ if (checkPermission($conn, $_SESSION['role_id'], 3)) {
 
     // Quy trình xóa bản ghi sau khi đã xác nhận
     if (isset($_POST["btn_submit"])) {
-
         $id = $_GET['id'];
+        
         // Chuẩn bị câu lệnh delete
-        $query = "DELETE FROM users WHERE id = $id";
+        $query = "DELETE FROM users WHERE id = '$id'";
         $result   = mysqli_query($conn, $query);
+        
         if ($result) {
             header("location: /udweb/users");
             exit();
@@ -22,7 +23,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 3)) {
         // Kiểm tra sự tồn tại của tham số id
         if (empty(trim($_GET["id"]))) {
             // URL không chứa tham số id. Chuyển hướng đén trang error
-            header("location: error.php");
+            header("location: ../error.php");
             exit();
         }
     }

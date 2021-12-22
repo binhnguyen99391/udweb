@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 22, 2021 lúc 01:49 PM
+-- Thời gian đã tạo: Th12 22, 2021 lúc 04:51 PM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 7.3.31
 
@@ -40,8 +40,8 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`id`, `name`, `author`, `category_id`, `quantily`) VALUES
-(1, 'Chiến tranh và hoà bình', 'Lev Tolstoy', 3, 3),
-(3, 'Tam quốc diễn nghĩa', 'La Quán Trung', 4, 2),
+(1, 'Chiến tranh và hoà bình', 'Lev Tolstoy', 1, 3),
+(3, 'Tam quốc diễn nghĩa', 'La Quán Trung', 7, 2),
 (4, 'Harry Potter', 'J. K. Rowling', 3, 2),
 (5, 'Truyện Kiều', 'Nguyễn Du', 3, 2),
 (6, 'Đắc Nhân Tâm', 'Dale Carnegie', 1, 1);
@@ -65,7 +65,7 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 (1, 'Văn học'),
 (2, 'Nghệ thuật'),
 (3, 'Phiêu lưu'),
-(4, 'Toán học');
+(7, 'Toán Học');
 
 -- --------------------------------------------------------
 
@@ -160,8 +160,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `username`, `email`, `password`, `phone`, `address`) VALUES
-(1, 1, 'nguyentruongbinh', 'at140803@gmail.com', 'a18aec381b9088ecbd8820944419172e56c5454d', '0333160028', 'Hà Nội'),
-(2, 2, 'thuthu', 'binhnguyen9939@gmail.com', 'a18aec381b9088ecbd8820944419172e56c5454d', '0333160029', 'Lào Cai'),
+(1, 1, 'nguyentruongbinh', 'at140803@gmail.com', 'a18aec381b9088ecbd8820944419172e56c5454d', '0333160020', 'Hà Nội'),
+(2, 2, 'thuthu', 'binhnguyen9939@gmail.com', 'c1b9fc70d1ef834a58d006a8ee37221435c72383', '0333160029', 'Lào Cai'),
 (3, 3, 'nguoidung', 'nguoidung@gmail.com', 'a18aec381b9088ecbd8820944419172e56c5454d', '0333160027', 'Hải Dương');
 
 --
@@ -214,13 +214,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
@@ -238,7 +238,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,7 +3,6 @@
 
 require_once("../checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 6)) {
-    echo $_GET['id'];
 
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
     if (isset($_POST["btn_submit"])) {

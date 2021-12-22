@@ -3,13 +3,11 @@
 
 require_once("../checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 6)) {
-    echo $_GET['id'];
 
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
     if (isset($_POST["btn_submit"])) {
         // Lấy dữ liệu đầu vào
-        $id = $_GET["id"];
-
+        $id = trim($_GET["id"]);
         $name = trim($_POST["name"]);
 
         // Chuẩn bị câu lệnh Update
@@ -38,7 +36,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
         // Kiểm tra sự tồn tại của tham số id trước khi xử lý thêm
         if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
             // Lấy tham số URL
-            $id =  trim($_GET["id"]);
+            $id = trim($_GET["id"]);
 
             // Chuẩn bị câu lệnh select
             $sql = "SELECT * FROM categories WHERE id = ?";
@@ -64,8 +62,6 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
                     echo "Oh, no. Có gì đó sai sai. Vui lòng thử lại.";
                 }
             }
-            // Đóng kết nối
-            mysqli_close($conn);
         } else {
             // URL không chứa tham số id.
             exit();
@@ -81,7 +77,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
                 </div>
                 <p>Chỉnh sửa giá trị đầu vào và nhấn Xác nhận để cập nhật thông tin.</p>
                 <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
-                    <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                    <div class="form-group">
                         <label>Tên thể loại</label>
                         <input type="text" name="name" class="form-control" value="<?php echo $name; ?>" required>
                         <span class="help-block"></span>

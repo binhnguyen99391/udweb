@@ -1,8 +1,8 @@
 <?php
-$server_username = "root"; // thông tin đăng nhập host
-$server_password = ""; // mật khẩu, trong trường hợp này là trống
-$server_host = "localhost"; // host là localhost
-$database = 'at140803'; // database là website
+$server_username = "root";
+$server_password = "";
+$server_host = "localhost";
+$database = 'at140803';
 
 // Tạo kết nối đến database dùng mysqli_connect()
 $conn = mysqli_connect($server_host, $server_username, $server_password, $database) or die("không thể kết nối tới database");

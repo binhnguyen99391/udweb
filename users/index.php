@@ -28,9 +28,10 @@ if (checkPermission($conn, $_SESSION['role_id'], 4)) {
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
+        $i=1;
         while ($row = mysqli_fetch_array($result)) {
           echo "<tr>";
-          echo "<td>" . $row['id'] . "</td>";
+          echo "<td>" . $i++ . "</td>";
           echo "<td>" . $row['username'] . "</td>";
           echo "<td>" . $row['email'] . "</td>";
           if ($row['role_id'] == 1) {

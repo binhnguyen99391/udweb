@@ -8,19 +8,23 @@ require_once("libs/connection.php");
 
 if (isset($_POST['btn_submit'])) {
     $username = $_SESSION['username'];
-    $password = mysqli_fetch_array(mysqli_query($conn, "SELECT `password` FROM `users` WHERE username='$username'"));
+    $password = mysqli_fetch_array(mysqli_query($conn, "SELECT password FROM users WHERE username = '$username'"));
 
     $oldpass = sha1($_POST["oldPassword"]);
     $newpass = sha1($_POST["newPassword"]);
 
     if ($oldpass == $password[0]) {
 
-        $query    = "UPDATE `users` set `password` = '$newpass' WHERE username= '$username'";
+        $query    = "UPDATE users SET password = '$newpass' WHERE username= '$username'";
         $result = mysqli_query($conn, $query);
 
         if ($result) {
             echo "<div class='container'>
               <h3>Đổi mật khẩu thành công.</h3><br/>
+              </div>";
+        } else {
+            echo "<div class='container'>
+              <h3>Có lỗi xảy ra. Vui lòng thử lại</h3><br/>
               </div>";
         }
     } else {
@@ -33,18 +37,18 @@ if (isset($_POST['btn_submit'])) {
 ?>
 
     <div class="container">
-
         <form action="" method="post">
             <div class="form-group">
-                <label for="Password">Old Password</label>
-                <input type="password" class="form-control" name="oldPassword" id="oldPassword" placeholder="Enter Password" required autocomplete="new-password">
+                <label>Old Password</label>
+                <input type="password" class="form-control" name="oldPassword" placeholder="Enter Password" required autocomplete="new-password">
             </div>
             <div class="form-group">
-                <label for="Password">New Password</label>
-                <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Enter Password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" required autocomplete="new-password">
+                <label>New Password</label>
+                <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Enter Password" 
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" required autocomplete="new-password">
             </div>
             <div class="form-group">
-                <label for="ConfirmPassword">Confirm New Password</label>
+                <label>Confirm New Password</label>
                 <input type="password" class="form-control" id="ConfirmPassword" placeholder="Confirm Password" required>
             </div>
 

@@ -3,32 +3,34 @@
 
 <?php
 if (isset($_POST['btn_submit'])) {
-    $inputEmail = $_POST["inputEmail"];
+    $inputEmail = trim($_POST["inputEmail"]);
     $captcha = $_POST['g-recaptcha-response'];
+    
     if (!$captcha) {
         echo 'Xin mời xác nhận Captcha!!!';
         exit;
     }
     $secretKey = "6LdjCZMcAAAAAOInAGk20QYv63YK4l3twrAul-De";
 
-    // post request to server
+    // Gửi request đến server
     $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
     $response = file_get_contents($url);
     $responseKeys = json_decode($response, true);
-    // should return JSON with success as true
+    
+    //sẽ trả về JSON với success == true
     if ($responseKeys["success"]) {
-        $email = mysqli_fetch_array(mysqli_query($conn, "SELECT `email` FROM `users` WHERE email='$inputEmail'"));
+        $email = mysqli_fetch_array(mysqli_query($conn, "SELECT email FROM users WHERE email='$inputEmail'"));
 
         if ($inputEmail == $email[0]) {
             $new_pass = bin2hex(random_bytes(8));
 
             $to_email = "$inputEmail";
-            $subject = "Mật khẩu mới";
-            $body = "Xin chào, mật khẩu mới của bạn ở site:XDUDWEB là $new_pass";
+            $subject = "New Password";
+            $body = "Xin chào, mật khẩu mới của bạn ở website http://localhost:5/udweb là: $new_pass";
             $headers = "From: binhnguyen9939@gmail.com" . "\r\n";
             if (mail($to_email, $subject, $body, $headers)) {
 
-                $query    = "UPDATE `users` set `password` = '" . sha1($new_pass) . "' WHERE email= '$inputEmail'";
+                $query = "UPDATE users set password = '" . sha1($new_pass) . "' WHERE email= '$inputEmail'";
                 $result = mysqli_query($conn, $query);
                 if ($result) {
                     echo "<div class='container'>
@@ -43,7 +45,7 @@ if (isset($_POST['btn_submit'])) {
             }
         } else {
             echo "<div class='container'>
-                  <h4>Email không tồn tại</h4><br/>
+                  <h3>Email không tồn tại</h3><br/>
                   </div>";
         }
     } else {

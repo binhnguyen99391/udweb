@@ -16,15 +16,11 @@ if (isset($_POST['btn_submit'])) {
         "security"
     ];
 
-    $username = stripslashes($_POST['username']);
-    $username = mysqli_real_escape_string($conn, $username);
-    $password = stripslashes($_POST['password']);
-    $password = mysqli_real_escape_string($conn, $password);
-    $email = stripslashes($_POST['email']);
-    $email = mysqli_real_escape_string($conn, $email);
-
-    $phone   = addslashes($_POST['phone']);
-    $address   = stripslashes($_POST['address']);
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+    $email = trim($_POST['email']);
+    $phone = trim($_POST['phone']);
+    $address = trim($_POST['address']);
 
     // Kiểm tra tên người dùng bị cấm
     if (in_array($username, $name)) {
@@ -75,7 +71,8 @@ if (isset($_POST['btn_submit'])) {
         <form action="" method="post">
             <div class="form-group">
                 <label for="Username">Tên đăng nhập *</label>
-                <input type="text" class="form-control" name="username" id="Username" placeholder="Nhập tên đăng nhập" pattern="^[A-Za-z][A-Za-z0-9-]{2,25}$" required>
+                <input type="text" class="form-control" name="username" id="Username" placeholder="Nhập tên đăng nhập" 
+                pattern="^[A-Za-z][A-Za-z0-9-]{2,25}$" required>
             </div>
             <div class="form-group">
                 <label for="Password">Mật khẩu *</label>
@@ -91,7 +88,8 @@ if (isset($_POST['btn_submit'])) {
             </div>
             <div class="form-group">
                 <label for="PhoneNumber">Số điện thoại</label>
-                <input type="tel" class="form-control" name="phone" id="PhoneNumber" placeholder="Nhập số điện thoại" pattern="^(09|03|07|08|05)+([0-9]{8})$">
+                <input type="tel" class="form-control" name="phone" id="PhoneNumber" placeholder="Nhập số điện thoại" 
+                pattern="^(09|03|07|08|05)+([0-9]{8})$">
             </div>
             <div class="form-group">
                 <label for="Address">Địa chỉ</label>
