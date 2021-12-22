@@ -14,7 +14,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 1)) {
         "security"
     ];
     // Nếu không phải là sự kiện đăng ký thì không xử lý
-    if (isset($_POST['username'])) {
+    if (isset($_POST['btn_submit'])) {
         $username = stripslashes($_POST['username']);
         $username = mysqli_real_escape_string($conn, $username);
         
@@ -107,7 +107,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 1)) {
                     <input type="text" class="form-control" name="address" id="Address" placeholder="Nhập địa chỉ">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Xác nhận</button>
+                <button type="submit" class="btn btn-primary" name="btn_submit">Xác nhận</button>
                 <a href="/udweb/users" class="btn btn-default">Hủy bỏ</a>
             </form>
         </div>

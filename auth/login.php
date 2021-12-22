@@ -2,7 +2,7 @@
 <?php require_once("../libs/connection.php"); ?>
 <?php
 // When form submitted, check and create user session.
-if (isset($_POST['username'])) {
+if (isset($_POST['btn_submit'])) {
     $username = stripslashes($_POST['username']);    // removes backslashes
     $username = mysqli_real_escape_string($conn, $username);
     $password = stripslashes($_POST['password']);
@@ -39,7 +39,7 @@ if (isset($_POST['username'])) {
                 <input type="password" class="form-control" id="Password" name="password" placeholder="Nhập mật khẩu" required autocomplete="new-password">
             </div>
 
-            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+            <button type="submit" class="btn btn-primary" name="btn_submit">Đăng nhập</button>
         </form>
     </div>
 <?php

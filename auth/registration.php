@@ -4,7 +4,7 @@
 <?php
 
 // Nếu không phải là sự kiện đăng ký thì không xử lý
-if (isset($_POST['username'])) {
+if (isset($_POST['btn_submit'])) {
 
     $name = [
         "administrator", 
@@ -101,7 +101,7 @@ if (isset($_POST['username'])) {
                 <input type="text" class="form-control" name="address" id="Address" placeholder="Nhập địa chỉ">
             </div>
 
-            <button type="submit" class="btn btn-primary">Đăng ký</button>
+            <button type="submit" class="btn btn-primary" name="btn_submit">Đăng ký</button>
         </form>
     </div>
 

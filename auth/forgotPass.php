@@ -2,7 +2,7 @@
 <?php require_once("../libs/connection.php"); ?>
 
 <?php
-if (isset($_POST['inputEmail'])) {
+if (isset($_POST['btn_submit'])) {
     $inputEmail = $_POST["inputEmail"];
     $captcha = $_POST['g-recaptcha-response'];
     if (!$captcha) {
@@ -23,7 +23,7 @@ if (isset($_POST['inputEmail'])) {
             $new_pass = bin2hex(random_bytes(8));
     
             $to_email = "$inputEmail";
-            $subject = "New Password";
+            $subject = "Mật khẩu mới";
             $body = "Xin chào, mật khẩu mới của bạn ở site:XDUDWEB là $new_pass";
             $headers = "From: binhnguyen9939@gmail.com" . "\r\n";
             if (mail($to_email, $subject, $body, $headers)) {
@@ -59,7 +59,7 @@ if (isset($_POST['inputEmail'])) {
             </div>
             <div class="g-recaptcha" data-sitekey="6LdjCZMcAAAAAOQuieGQABscVALfqts9PHOVrlqV"></div>
 
-            <button type="submit" class="btn btn-primary">Gửi</button>
+            <button type="submit" class="btn btn-primary" name="btn_submit">Gửi</button>
         </form>
     </div>
 <?php

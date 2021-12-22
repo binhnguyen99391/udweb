@@ -6,7 +6,7 @@ require_once("libs/connection.php");
 
 <?php
 
-if (isset($_POST['oldPassword'])) {
+if (isset($_POST['btn_submit'])) {
     $username = $_SESSION['username'];
     $password = mysqli_fetch_array(mysqli_query($conn, "SELECT `password` FROM `users` WHERE username='$username'"));
 
@@ -20,12 +20,12 @@ if (isset($_POST['oldPassword'])) {
 
         if ($result) {
             echo "<div class='container'>
-              <h3>Password changed sucessfully.</h3><br/>
+              <h3>Đổi mật khẩu thành công.</h3><br/>
               </div>";
         }
     } else {
         echo "<div class='container'>
-              <h3>Password is not correct.</h3><br/>
+              <h3>Mật khẩu không khớp.</h3><br/>
               </div>";
     }
 } else {
@@ -48,7 +48,7 @@ if (isset($_POST['oldPassword'])) {
                 <input type="password" class="form-control" id="ConfirmPassword" placeholder="Confirm Password" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" name="btn_submit">Submit</button>
         </form>
     </div>
     <script>
