@@ -16,11 +16,11 @@ if (isset($_POST['btn_submit'])) {
         "security"
     ];
 
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-    $email = trim($_POST['email']);
-    $phone = trim($_POST['phone']);
-    $address = trim($_POST['address']);
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
+    $email = htmlspecialchars($_POST['email']);
+    $phone = htmlspecialchars($_POST['phone']);
+    $address = htmlspecialchars($_POST['address']);
 
     // Kiểm tra tên người dùng bị cấm
     if (in_array($username, $name)) {

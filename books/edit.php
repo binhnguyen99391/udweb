@@ -5,16 +5,16 @@ require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 6)) {
     
     // Lấy tham số URL
-    $id = trim($_GET["id"]);
+    $id = htmlspecialchars($_GET["id"]);
 
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
     if (isset($_POST["btn_submit"])) {
         // Lấy dữ liệu đầu vào
 
-        $name = trim($_POST["name"]);
-        $author = trim($_POST["author"]);
-        $quantily = trim($_POST["quantily"]);
-        $category = trim($_POST["category"]);
+        $name = htmlspecialchars($_POST["name"]);
+        $author = htmlspecialchars($_POST["author"]);
+        $quantily = htmlspecialchars($_POST["quantily"]);
+        $category = htmlspecialchars($_POST["category"]);
 
         // Chuẩn bị câu lệnh Update
         $sql = "UPDATE books SET name='$name', author='$author', 

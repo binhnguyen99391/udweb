@@ -5,12 +5,12 @@ require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 6)) {
 
     // Lấy tham số URL
-    $id = trim($_GET["id"]);
+    $id = htmlspecialchars($_GET["id"]);
     
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
     if (isset($_POST["btn_submit"])) {
         // Lấy dữ liệu đầu vào
-        $name = trim($_POST["name"]);
+        $name = htmlspecialchars($_POST["name"]);
 
         // Chuẩn bị câu lệnh Update
         $sql = "UPDATE categories SET name='$name' WHERE id='$id'";

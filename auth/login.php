@@ -3,8 +3,8 @@
 <?php
 // When form submitted, check and create user session.
 if (isset($_POST['btn_submit'])) {
-    $username = trim($_POST['username']);    // removes backslashes
-    $password = trim($_POST['password']);
+    $username = htmlspecialchars($_POST['username']);    // removes backslashes
+    $password = htmlspecialchars($_POST['password']);
 
     $query    = "SELECT * FROM users WHERE username='$username'
                      AND password='" . sha1($password) . "'";

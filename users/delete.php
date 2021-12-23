@@ -6,7 +6,7 @@ require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 3)) {
 
     // Lấy tham số URL
-    $id = trim($_GET['id']);
+    $id = htmlspecialchars($_GET['id']);
 
     // Quy trình xóa bản ghi sau khi đã xác nhận
     if (isset($_POST["btn_submit"])) {

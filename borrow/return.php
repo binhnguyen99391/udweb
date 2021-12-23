@@ -6,11 +6,11 @@ require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 8)) {
 
     // Lấy tham số URL
-    $id = trim($_GET['id']);
+    $id = htmlspecialchars($_GET['id']);
     
     // Quy trình xóa bản ghi sau khi đã xác nhận
     if (isset($_POST["btn_submit"])) {
-        $bookid = trim($_POST['bookid']);
+        $bookid = htmlspecialchars($_POST['bookid']);
         
         // Chuẩn bị câu lệnh delete
         $query = "DELETE FROM borrow_book WHERE id = '$id'";

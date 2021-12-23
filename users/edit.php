@@ -5,16 +5,16 @@ require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 2)) {
 
     // Lấy tham số URL
-    $id = trim($_GET['id']);
+    $id = htmlspecialchars($_GET['id']);
 
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
     if (isset($_POST["btn_submit"])) {
         // Lấy dữ liệu đầu vào
-        $username = trim($_POST["username"]);
-        $email = trim($_POST["email"]);
-        $address = trim($_POST["address"]);
-        $phone = trim($_POST["phone"]);
-        $role_id = trim($_POST['role']);
+        $username = htmlspecialchars($_POST["username"]);
+        $email = htmlspecialchars($_POST["email"]);
+        $address = htmlspecialchars($_POST["address"]);
+        $phone = htmlspecialchars($_POST["phone"]);
+        $role_id = htmlspecialchars($_POST['role']);
 
         // Chuẩn bị câu lệnh Update
         $sql = "UPDATE users SET username='$username', email='$email', 

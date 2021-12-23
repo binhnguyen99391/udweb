@@ -7,10 +7,10 @@ if (checkPermission($conn, $_SESSION['role_id'], 5)) {
 
     // Nếu không phải là sự kiện đăng ký thì không xử lý
     if (isset($_POST['btn_submit'])) {
-        $name = trim($_POST['name']);
-        $author = trim($_POST['author']);
-        $category = trim($_POST['category']);
-        $quantily = trim($_POST['quantily']);
+        $name = htmlspecialchars($_POST['name']);
+        $author = htmlspecialchars($_POST['author']);
+        $category = htmlspecialchars($_POST['category']);
+        $quantily = htmlspecialchars($_POST['quantily']);
 
         //Kiểm tra tên sách này đã có chưa
         if (mysqli_num_rows(mysqli_query($conn, "SELECT name FROM books WHERE name='$name'"))) {

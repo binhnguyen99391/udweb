@@ -6,12 +6,12 @@ require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 7)) {
 
     // Lấy tham số URL
-    $id = trim($_GET['id']);
+    $id = htmlspecialchars($_GET['id']);
     
     // Quy trình xóa bản ghi sau khi đã xác nhận
     if (isset($_POST["btn_submit"])) {
-        $bookname = trim($_POST['bookname']);
-        $bookid = trim($_POST['bookid']);
+        $bookname = htmlspecialchars($_POST['bookname']);
+        $bookid = htmlspecialchars($_POST['bookid']);
         
         // Chuẩn bị câu lệnh delete
         $query = "UPDATE borrow_book SET status = '1' WHERE id='$id'";

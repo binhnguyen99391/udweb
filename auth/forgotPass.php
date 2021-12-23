@@ -3,7 +3,7 @@
 
 <?php
 if (isset($_POST['btn_submit'])) {
-    $inputEmail = trim($_POST["inputEmail"]);
+    $inputEmail = htmlspecialchars($_POST["inputEmail"]);
     $captcha = $_POST['g-recaptcha-response'];
     
     if (!$captcha) {
