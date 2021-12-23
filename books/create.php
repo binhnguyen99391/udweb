@@ -2,7 +2,7 @@
 <?php require_once("../libs/connection.php"); ?>
 
 <?php
-require_once("../checkPermission.php");
+require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 5)) {
 
     // Nếu không phải là sự kiện đăng ký thì không xử lý
@@ -72,7 +72,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 5)) {
                         </div>
                         <div class="form-group">
                             <label for="Quantily">Số lượng *</label>
-                            <input type="text" class="form-control" name="quantily" id="Quantily" placeholder="Nhập Email" required>
+                            <input type="text" class="form-control" name="quantily" id="Quantily" placeholder="Nhập số lượng" required>
                         </div>
                         <button type="submit" class="btn btn-primary" name="btn_submit">Xác nhận</button>
                         <a href="index.php" class="btn btn-default">Hủy bỏ</a>
@@ -83,7 +83,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 5)) {
 <?php
     }
 } else {
-    header('Location: ../403.php');
+    header('Location: ../errors/403.php');
 }
 ?>
 <?php include "../includes/footer.php" ?>

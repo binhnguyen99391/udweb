@@ -1,4 +1,4 @@
-<?php include "includes/header.php"; ?>
+<?php include "../includes/header.php"; ?>
 
 <div class="container">
     <img src="" alt="">
@@ -6,4 +6,4 @@
     <h1 class="text-center">Nhấn <a href="/udweb">đây</a> để quay lại!!!</p>
 </div>
 
-<?php include "includes/footer.php" ?>
+<?php include "../includes/footer.php" ?>

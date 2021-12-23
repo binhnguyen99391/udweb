@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 22, 2021 lúc 05:27 PM
+-- Thời gian đã tạo: Th12 23, 2021 lúc 11:09 AM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 7.3.31
 
@@ -40,11 +40,31 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`id`, `name`, `author`, `category_id`, `quantily`) VALUES
-(1, 'Chiến tranh và hoà bình', 'Lev Tolstoy', 1, 3),
+(1, 'Chiến tranh và hoà bình', 'Lev Tolstoy', 3, 3),
 (3, 'Tam quốc diễn nghĩa', 'La Quán Trung', 7, 2),
 (4, 'Harry Potter', 'J. K. Rowling', 3, 2),
-(5, 'Truyện Kiều', 'Nguyễn Du', 3, 2),
+(5, 'Truyện Kiều', 'Nguyễn Du', 3, 1),
 (6, 'Đắc Nhân Tâm', 'Dale Carnegie', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `borrow_book`
+--
+
+CREATE TABLE `borrow_book` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `borrow_book`
+--
+
+INSERT INTO `borrow_book` (`id`, `user_id`, `book_id`, `status`) VALUES
+(5, 3, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -62,10 +82,11 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`) VALUES
-(1, 'Văn học'),
+(1, 'Văn học đời sống'),
 (2, 'Nghệ thuật'),
 (3, 'Phiêu lưu'),
-(7, 'Toán Học');
+(7, 'Toán Học'),
+(8, 'Khoa học');
 
 -- --------------------------------------------------------
 
@@ -84,14 +105,14 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`perm_id`, `perm_mod`, `perm_desc`) VALUES
-(1, 'USR', 'Create new users'),
-(2, 'USR', 'Update users'),
-(3, 'USR', 'Delete users'),
-(4, 'USR', 'View users'),
-(5, 'LIB', 'Create new books'),
-(6, 'LIB', 'Update books'),
-(7, 'LIB', 'Delete books'),
-(8, 'LIB', 'View books');
+(1, 'USR', 'Tạo mới người dùng'),
+(2, 'USR', 'Chỉnh sửa thông tin người dùng'),
+(3, 'USR', 'Xóa người dùng'),
+(4, 'USR', 'Xem danh sách người dùng'),
+(5, 'LIB', 'Tạo mới sách'),
+(6, 'LIB', 'Cập nhật thông tin sách'),
+(7, 'LIB', 'Xóa sách'),
+(8, 'LIB', 'Xem danh sách sách');
 
 -- --------------------------------------------------------
 
@@ -160,9 +181,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `username`, `email`, `password`, `phone`, `address`) VALUES
-(1, 1, 'nguyentruongbinh', 'at140803@gmail.com', 'a18aec381b9088ecbd8820944419172e56c5454d', '0333160020', 'Hà Nội'),
+(1, 1, 'nguyentruongbinh', 'at140803@gmail.com', 'a18aec381b9088ecbd8820944419172e56c5454d', '0333160020', 'Hà Lội'),
 (2, 2, 'thuthu', 'binhnguyen9939@gmail.com', 'c1b9fc70d1ef834a58d006a8ee37221435c72383', '0333160029', 'Lào Cai'),
-(3, 3, 'nguoidung', 'nguoidung@gmail.com', 'a18aec381b9088ecbd8820944419172e56c5454d', '0333160027', 'Hải Dương');
+(3, 3, 'nguoidung', 'nguoidung@gmail.com', 'a18aec381b9088ecbd8820944419172e56c5454d', '0333160027', 'Hải Dương'),
+(31, 3, 'nguoidung2', 'nguoidung202@gmail.com', '9d252c27f23cbe86091ad024206b11cee8ce2565', '', '');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -172,6 +194,12 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `email`, `password`, `phone`, 
 -- Chỉ mục cho bảng `books`
 --
 ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `borrow_book`
+--
+ALTER TABLE `borrow_book`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -214,13 +242,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `books`
 --
 ALTER TABLE `books`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT cho bảng `borrow_book`
+--
+ALTER TABLE `borrow_book`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
@@ -238,7 +272,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

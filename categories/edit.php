@@ -1,68 +1,46 @@
 <?php include "../includes/header.php" ?>
 <?php require_once("../libs/connection.php");
 
-require_once("../checkPermission.php");
+require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 6)) {
 
+    // Lấy tham số URL
+    $id = trim($_GET["id"]);
+    
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
     if (isset($_POST["btn_submit"])) {
         // Lấy dữ liệu đầu vào
-        $id = trim($_GET["id"]);
         $name = trim($_POST["name"]);
 
         // Chuẩn bị câu lệnh Update
-        $sql = "UPDATE categories SET name=? WHERE id=?";
+        $sql = "UPDATE categories SET name='$name' WHERE id='$id'";
 
-        if ($stmt = mysqli_prepare($conn, $sql)) {
-            // Liên kết các biến với câu lệnh đã chuẩn bị
-            mysqli_stmt_bind_param($stmt, "si", $param_name, $param_id);
-
-            // Thiết lập tham số
-            $param_name = $name;
-            $param_id = $id;
-
-            // Cố gắng thực thi câu lệnh đã chuẩn bị
-            if (mysqli_stmt_execute($stmt)) {
-                // Update thành công. Chuyển hướng đến trang đích
-                header("location: /udweb/categories");
-                exit();
-            } else {
-                echo "Vui lòng thử lại.";
-            }
+        // Cố gắng thực thi câu lệnh đã chuẩn bị
+        if (mysqli_query($conn, $sql)) {
+            // Update thành công. Chuyển hướng đến trang đích
+            header("location: /udweb/categories");
+            exit();
+        } else {
+            echo "Vui lòng thử lại.";
         }
     } else {
         // Kiểm tra sự tồn tại của tham số id trước khi xử lý thêm
-        if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
-            // Lấy tham số URL
-            $id = trim($_GET["id"]);
-
+        if (isset($id)) {
             // Chuẩn bị câu lệnh select
-            $sql = "SELECT * FROM categories WHERE id = ?";
-            if ($stmt = mysqli_prepare($conn, $sql)) {
-                // Liên kết các biến với câu lệnh đã chuẩn bị
-                mysqli_stmt_bind_param($stmt, "i", $param_id);
+            $sql = "SELECT * FROM categories WHERE id = '$id'";
+            $result = mysqli_query($conn, $sql);
 
-                // Thiết lập tham số
-                $param_id = $id;
+            if (mysqli_num_rows($result) == 1) {
+                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-                // Cố gắng thực thi câu lệnh đã chuẩn bị
-                if (mysqli_stmt_execute($stmt)) {
-                    $result = mysqli_stmt_get_result($stmt);
-
-                    if (mysqli_num_rows($result) == 1) {
-                        /* Lấy hàng kết quả dưới dạng một mảng kết hợp. Vì tập kết quả chỉ chứa một hàng, chúng ta không cần sử dụng vòng lặp while */
-                        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-                        // Lấy giá trị trường riêng lẻ
-                        $name = $row["name"];
-                    }
-                } else {
-                    echo "Vui lòng thử lại.";
-                }
+                // Lấy giá trị trường riêng lẻ
+                $name = $row["name"];
+            } else {
+                echo "Vui lòng thử lại.";
             }
         } else {
             // URL không chứa tham số id.
-            header("location: ../error.php");
+            header("location: ../errors/error.php");
             exit();
         }
     }
@@ -89,7 +67,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
     </div>
 <?php
 } else {
-    header('Location: ../403.php');
+    header('Location: ../errors/403.php');
 }
 ?>
 <?php include "../includes/footer.php" ?>

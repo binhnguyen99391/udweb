@@ -1,10 +1,10 @@
 <?php include "../includes/header.php"; ?>
 
-<?php include("../auth_session.php"); ?>
+<?php include("../libs/auth_session.php"); ?>
 
 <?php
 require_once("../libs/connection.php");
-require_once("../checkPermission.php");
+require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 8)) {
 ?>
 
@@ -39,6 +39,9 @@ if (checkPermission($conn, $_SESSION['role_id'], 8)) {
           echo "<td>" . $data['name'] . "</td>";
           echo "<td>" . $row['quantily'] . "</td>";
           echo "<td>";
+          if ($row['quantily'] != 0){
+            echo "<a href='../borrow/borrow.php?id=" . $row['id'] . "' class='btn btn-primary'><span class='glyphicon glyphicon-shopping-cart'></span></a>";
+          }
           echo "<a href='edit.php?id=" . $row['id'] . "' class='btn btn-secondary'><span class='glyphicon glyphicon-edit'></span></a>";
           echo "<a href='delete.php?id=" . $row['id'] . "' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
           echo "</td>";
@@ -59,7 +62,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 8)) {
   </main>
 <?php
 } else {
-  header('Location: ../403.php');
+  header('Location: ../errors/403.php');
 }
 ?>
 <?php include "../includes/footer.php" ?>

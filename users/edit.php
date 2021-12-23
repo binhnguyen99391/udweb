@@ -1,14 +1,15 @@
 <?php include "../includes/header.php" ?>
 <?php require_once("../libs/connection.php");
 
-require_once("../checkPermission.php");
+require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 2)) {
-    echo $_GET['id'];
+
+    // Lấy tham số URL
+    $id = trim($_GET['id']);
 
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
     if (isset($_POST["btn_submit"])) {
         // Lấy dữ liệu đầu vào
-        $id = $_GET["id"];
         $username = trim($_POST["username"]);
         $email = trim($_POST["email"]);
         $address = trim($_POST["address"]);
@@ -16,71 +17,43 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
         $role_id = trim($_POST['role']);
 
         // Chuẩn bị câu lệnh Update
-        $sql = "UPDATE users SET username=?, email=?, address=?, phone=?, role_id=? WHERE id=?";
+        $sql = "UPDATE users SET username='$username', email='$email', 
+                address='$address', phone='$phone', role_id='$role_id' WHERE id='$id'";
 
-        if ($stmt = mysqli_prepare($conn, $sql)) {
-            // Liên kết các biến với câu lệnh đã chuẩn bị
-            mysqli_stmt_bind_param($stmt, "ssssii", 
-            $param_username, $param_email, $param_address, $param_phone, $param_role, $param_id);
-
-            // Thiết lập tham số
-            $param_username = $username;
-            $param_email = $email;
-            $param_address = $address;
-            $param_phone = $phone;
-            $param_role = $role_id;
-            $param_id = $id;
-
-            // Cố gắng thực thi câu lệnh đã chuẩn bị
-            if (mysqli_stmt_execute($stmt)) {
-                //nếu là người dùng hiện tại thì thay đổi luôn Session
-                if ($id == $_SESSION['user_id']) {
-                    $_SESSION['role_id'] = $role_id;
-                }
-                // Update thành công. Chuyển hướng đến trang đích
-                header("location: /udweb/users");
-                exit();
-            } else {
-                echo "Vui lòng thử lại.";
+        // Cố gắng thực thi câu lệnh đã chuẩn bị
+        if (mysqli_query($conn, $sql)) {
+            //nếu là người dùng hiện tại thì thay đổi luôn Session
+            if ($id == $_SESSION['user_id']) {
+                $_SESSION['role_id'] = $role_id;
             }
+            // Update thành công. Chuyển hướng đến trang đích
+            header("location: /udweb/users");
+            exit();
+        } else {
+            echo "Vui lòng thử lại.";
         }
     } else {
         // Kiểm tra sự tồn tại của tham số id trước khi xử lý thêm
-        if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
-            // Lấy tham số URL
-            $id =  trim($_GET["id"]);
-
+        if (isset($id)) {
             // Chuẩn bị câu lệnh select
-            $sql = "SELECT * FROM users WHERE id = ?";
-            if ($stmt = mysqli_prepare($conn, $sql)) {
-                // Liên kết các biến với câu lệnh đã chuẩn bị
-                mysqli_stmt_bind_param($stmt, "i", $param_id);
+            $sql = "SELECT * FROM users WHERE id = '$id'";
+            $result = mysqli_query($conn, $sql);
 
-                // Thiết lập tham số
-                $param_id = $id;
+            if (mysqli_num_rows($result) == 1) {
+                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-                // Cố gắng thực thi câu lệnh đã chuẩn bị
-                if (mysqli_stmt_execute($stmt)) {
-                    $result = mysqli_stmt_get_result($stmt);
-
-                    if (mysqli_num_rows($result) == 1) {
-                        /* Lấy hàng kết quả dưới dạng một mảng kết hợp. Vì tập kết quả chỉ chứa một hàng, chúng ta không cần sử dụng vòng lặp while */
-                        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-                        // Lấy giá trị trường riêng lẻ
-                        $username = $row["username"];
-                        $email = $row["email"];
-                        $address = $row["address"];
-                        $phone = $row["phone"];
-                        $role = $row['role_id'];
-                    }
-                } else {
-                    echo "Vui lòng thử lại.";
-                }
+                // Lấy giá trị trường riêng lẻ
+                $username = $row["username"];
+                $email = $row["email"];
+                $address = $row["address"];
+                $phone = $row["phone"];
+                $role = $row['role_id'];
+            } else {
+                echo "Vui lòng thử lại.";
             }
         } else {
             // URL không chứa tham số id.
-            header("location: ../error.php");
+            header("location: ../errors/error.php");
             exit();
         }
     }
@@ -130,7 +103,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 2)) {
     </div>
 <?php
 } else {
-    header('Location: ../403.php');
+    header('Location: ../errors/403.php');
 }
 ?>
 <?php include "../includes/footer.php" ?>

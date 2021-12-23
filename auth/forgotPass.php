@@ -56,8 +56,8 @@ if (isset($_POST['btn_submit'])) {
     <div class="m-5 w-25 mx-auto">
         <form action="" method="post">
             <div class="form-group">
-                <label for="InputUsername">Email *</label>
-                <input type="email" class="form-control" id="Email" name="inputEmail" placeholder="Nhập email" required>
+                <label>Email *</label>
+                <input type="email" class="form-control" name="inputEmail" placeholder="Nhập email" required>
             </div>
             <div class="g-recaptcha" data-sitekey="6LdjCZMcAAAAAOQuieGQABscVALfqts9PHOVrlqV"></div>
 

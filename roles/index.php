@@ -1,10 +1,10 @@
 <?php include "../includes/header.php"; ?>
 
-<?php include("../auth_session.php"); ?>
+<?php include("../libs/auth_session.php"); ?>
 
 <?php
 require_once("../libs/connection.php");
-require_once("../checkPermission.php");
+require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 1)) {
 ?>
 
@@ -62,7 +62,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 1)) {
   </main>
 <?php
 } else {
-  header('Location: ../403.php');
+  header('Location: ../errors/403.php');
 }
 ?>
 <?php include "../includes/footer.php" ?>

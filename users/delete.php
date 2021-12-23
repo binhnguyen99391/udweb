@@ -2,13 +2,15 @@
 
 <?php
 require_once("../libs/connection.php");
-require_once("../checkPermission.php");
+require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 3)) {
+
+    // Lấy tham số URL
+    $id = trim($_GET['id']);
 
     // Quy trình xóa bản ghi sau khi đã xác nhận
     if (isset($_POST["btn_submit"])) {
-        $id = $_GET['id'];
-        
+
         // Chuẩn bị câu lệnh delete
         $query = "DELETE FROM users WHERE id = '$id'";
         $result   = mysqli_query($conn, $query);
@@ -21,9 +23,9 @@ if (checkPermission($conn, $_SESSION['role_id'], 3)) {
         }
     } else {
         // Kiểm tra sự tồn tại của tham số id
-        if (empty(trim($_GET["id"]))) {
+        if (empty($id)) {
             // URL không chứa tham số id. Chuyển hướng đén trang error
-            header("location: ../error.php");
+            header("location: ../errors/error.php");
             exit();
         }
     }
@@ -49,7 +51,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 3)) {
     </div>
 <?php
 } else {
-    header('Location: ../403.php');
+    header('Location: ../errors/403.php');
 }
 ?>
 <?php include "../includes/footer.php" ?>

@@ -70,32 +70,32 @@ if (isset($_POST['btn_submit'])) {
     <div class="m-5 w-25 mx-auto">
         <form action="" method="post">
             <div class="form-group">
-                <label for="Username">Tên đăng nhập *</label>
-                <input type="text" class="form-control" name="username" id="Username" placeholder="Nhập tên đăng nhập" 
+                <label>Tên đăng nhập *</label>
+                <input type="text" class="form-control" name="username" placeholder="Nhập tên đăng nhập" 
                 pattern="^[A-Za-z][A-Za-z0-9-]{2,25}$" required>
             </div>
             <div class="form-group">
-                <label for="Password">Mật khẩu *</label>
-                <input type="password" class="form-control" name="password" id="Password" placeholder="Tối thiểu 8 ký tự bao gồm chữ hoa, thường, số và ký tự" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" required autocomplete="new-password">
+                <label>Mật khẩu *</label>
+                <input type="password" class="form-control" name="password" placeholder="Tối thiểu 8 ký tự bao gồm chữ hoa, thường, số và ký tự" 
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" required autocomplete="new-password">
             </div>
             <div class="form-group">
-                <label for="ConfirmPassword">Xác nhận mật khẩu *</label>
+                <label>Xác nhận mật khẩu *</label>
                 <input type="password" class="form-control" id="ConfirmPassword" placeholder="Nhập lại mật khẩu" required>
             </div>
             <div class="form-group">
-                <label for="Email">Email *</label>
-                <input type="email" class="form-control" name="email" id="Email" placeholder="Nhập email" required>
+                <label>Email *</label>
+                <input type="email" class="form-control" name="email" placeholder="Nhập email" required>
             </div>
             <div class="form-group">
-                <label for="PhoneNumber">Số điện thoại</label>
-                <input type="tel" class="form-control" name="phone" id="PhoneNumber" placeholder="Nhập số điện thoại" 
+                <label>Số điện thoại</label>
+                <input type="tel" class="form-control" name="phone" placeholder="Nhập số điện thoại" 
                 pattern="^(09|03|07|08|05)+([0-9]{8})$">
             </div>
             <div class="form-group">
-                <label for="Address">Địa chỉ</label>
-                <input type="text" class="form-control" name="address" id="Address" placeholder="Nhập địa chỉ">
+                <label>Địa chỉ</label>
+                <input type="text" class="form-control" name="address" placeholder="Nhập địa chỉ">
             </div>
-
             <button type="submit" class="btn btn-primary" name="btn_submit">Đăng ký</button>
         </form>
     </div>

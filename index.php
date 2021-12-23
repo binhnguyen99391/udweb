@@ -1,6 +1,6 @@
 <?php include "includes/header.php"; ?>
 <?php
-include("auth_session.php");
+include("libs/auth_session.php");
 require_once("libs/connection.php");
 ?>
 

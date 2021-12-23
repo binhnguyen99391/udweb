@@ -1,7 +1,7 @@
-<?php include "includes/header.php" ?>
+<?php include "../includes/header.php" ?>
 <?php
-include("auth_session.php");
-require_once("libs/connection.php");
+include("../libs/auth_session.php");
+require_once("../libs/connection.php");
 ?>
 
 <?php
@@ -72,4 +72,4 @@ if (isset($_POST['btn_submit'])) {
 <?php
 }
 ?>
-<?php include "includes/footer.php" ?>
+<?php include "../includes/footer.php" ?>

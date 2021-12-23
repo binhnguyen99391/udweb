@@ -1,13 +1,15 @@
 <?php include "../includes/header.php" ?>
 <?php require_once("../libs/connection.php");
 
-require_once("../checkPermission.php");
+require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 6)) {
+    
+    // Lấy tham số URL
+    $id = trim($_GET["id"]);
 
     // Xử lý dữ liệu biểu mẫu khi biểu mẫu được gửi
     if (isset($_POST["btn_submit"])) {
         // Lấy dữ liệu đầu vào
-        $id = $_GET["id"];
 
         $name = trim($_POST["name"]);
         $author = trim($_POST["author"]);
@@ -15,64 +17,40 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
         $category = trim($_POST["category"]);
 
         // Chuẩn bị câu lệnh Update
-        $sql = "UPDATE books SET name=?, author=?, category_id=?, quantily=? WHERE id=?";
+        $sql = "UPDATE books SET name='$name', author='$author', 
+                category_id='$category', quantily='$quantily' WHERE id='$id'";
 
-        if ($stmt = mysqli_prepare($conn, $sql)) {
-            // Liên kết các biến với câu lệnh đã chuẩn bị
-            mysqli_stmt_bind_param($stmt, "ssiii", $param_name, $param_author, $param_category_id, $param_quantily, $param_id);
-
-            // Thiết lập tham số
-            $param_name = $name;
-            $param_author = $author;
-            $param_quantily = $quantily;
-            $param_category_id = $category;
-            $param_id = $id;
-
-            // Cố gắng thực thi câu lệnh đã chuẩn bị
-            if (mysqli_stmt_execute($stmt)) {
-                // Update thành công. Chuyển hướng đến trang đích
-                header("location: /udweb/books");
-                exit();
-            } else {
-                echo "Vui lòng thử lại.";
-            }
+        // Cố gắng thực thi câu lệnh đã chuẩn bị
+        if (mysqli_query($conn, $sql)) {
+            // Update thành công. Chuyển hướng đến trang đích
+            header("location: /udweb/books");
+            exit();
+        } else {
+            echo "Vui lòng thử lại.";
         }
     } else {
         // Kiểm tra sự tồn tại của tham số id trước khi xử lý thêm
-        if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
-            // Lấy tham số URL
-            $id =  trim($_GET["id"]);
-
+        if (isset($id)) {
             // Chuẩn bị câu lệnh select
-            $sql = "SELECT * FROM books WHERE id = ?";
-            if ($stmt = mysqli_prepare($conn, $sql)) {
-                // Liên kết các biến với câu lệnh đã chuẩn bị
-                mysqli_stmt_bind_param($stmt, "i", $param_id);
+            $sql = "SELECT * FROM books WHERE id = '$id'";
+            $result = mysqli_query($conn, $sql);
 
-                // Thiết lập tham số
-                $param_id = $id;
+            if (mysqli_num_rows($result) == 1) {
+                /* Lấy hàng kết quả dưới dạng một mảng kết hợp. Vì tập kết quả chỉ chứa một hàng, chúng ta không cần sử dụng vòng lặp while */
+                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-                // Cố gắng thực thi câu lệnh đã chuẩn bị
-                if (mysqli_stmt_execute($stmt)) {
-                    $result = mysqli_stmt_get_result($stmt);
-
-                    if (mysqli_num_rows($result) == 1) {
-                        /* Lấy hàng kết quả dưới dạng một mảng kết hợp. Vì tập kết quả chỉ chứa một hàng, chúng ta không cần sử dụng vòng lặp while */
-                        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-                        // Lấy giá trị trường riêng lẻ
-                        $name = $row["name"];
-                        $author = $row["author"];
-                        $quantily = $row["quantily"];
-                        $category = $row["category_id"];
-                    }
-                } else {
-                    echo "Vui lòng thử lại.";
-                }
+                // Lấy giá trị trường riêng lẻ
+                $name = $row["name"];
+                $author = $row["author"];
+                $quantily = $row["quantily"];
+                $category = $row["category_id"];
+                // }
+            } else {
+                echo "Vui lòng thử lại.";
             }
         } else {
             // URL không chứa tham số id.
-            header("location: ../error.php");
+            header("location: ../errors/error.php");
             exit();
         }
     }
@@ -86,12 +64,12 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
                 </div>
                 <p>Chỉnh sửa giá trị đầu vào và nhấn Xác nhận để cập nhật thông tin.</p>
                 <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
-                    <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                    <div class="form-group">
                         <label>Tên sách</label>
                         <input type="text" name="name" class="form-control" value="<?php echo $name; ?>" required>
                         <span class="help-block"></span>
                     </div>
-                    <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+                    <div class="form-group">
                         <label>Tác giả</label>
                         <input type="text" name="author" class="form-control" value="<?php echo $author; ?>" required>
                         <span class="help-block"></span>
@@ -117,7 +95,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
                                 ?>
                         </select>
                     </div>
-                    <div class="form-group <?php echo (!empty($phone_err)) ? 'has-error' : ''; ?>">
+                    <div class="form-group">
                         <label>Số lượng</label>
                         <input type="text" name="quantily" class="form-control" value="<?php echo $quantily; ?>">
                         <span class="help-block"></span>
@@ -130,7 +108,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 6)) {
     </div>
 <?php
 } else {
-    header('Location: ../403.php');
+    header('Location: ../errors/403.php');
 }
 ?>
 <?php include "../includes/footer.php" ?>

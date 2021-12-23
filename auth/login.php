@@ -17,7 +17,6 @@ if (isset($_POST['btn_submit'])) {
         $_SESSION['role_id'] = $data['role_id'];
         $_SESSION['loggedin'] = true;
         
-        // Redirect to user dashboard page
         header("Location: /udweb");
     } else {
         echo "<div class='container'>
@@ -30,14 +29,15 @@ if (isset($_POST['btn_submit'])) {
     <div class="m-5 w-25 mx-auto">
         <form action="" method="post">
             <div class="form-group">
-                <label for="InputUsername">Tên đăng nhập</label>
-                <input type="text" class="form-control" id="InputUsername" name="username" placeholder="Nhập tên đăng nhập" required autocomplete="username">
+                <label>Tên đăng nhập</label>
+                <input type="text" class="form-control" name="username" 
+                placeholder="Nhập tên đăng nhập" required autocomplete="username">
             </div>
             <div class="form-group">
-                <label for="Password">Mật khẩu</label>
-                <input type="password" class="form-control" id="Password" name="password" placeholder="Nhập mật khẩu" required autocomplete="new-password">
+                <label>Mật khẩu</label>
+                <input type="password" class="form-control" name="password" 
+                placeholder="Nhập mật khẩu" required autocomplete="new-password">
             </div>
-
             <button type="submit" class="btn btn-primary" name="btn_submit">Đăng nhập</button>
         </form>
     </div>

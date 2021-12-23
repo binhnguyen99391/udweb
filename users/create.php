@@ -2,7 +2,7 @@
 <?php require_once("../libs/connection.php"); ?>
 
 <?php
-require_once("../checkPermission.php");
+require_once("../libs/checkPermission.php");
 if (checkPermission($conn, $_SESSION['role_id'], 1)) {
     $name = [
         "administrator",
@@ -91,7 +91,8 @@ if (checkPermission($conn, $_SESSION['role_id'], 1)) {
                         </div>
                         <div class="form-group">
                             <label>Số điện thoại</label>
-                            <input type="tel" class="form-control" name="phone" placeholder="Nhập số điện thoại" pattern="^(09|03|07|08|05)+([0-9]{8})$">
+                            <input type="tel" class="form-control" name="phone" placeholder="Nhập số điện thoại" 
+                            pattern="^(09|03|07|08|05)+([0-9]{8})$">
                         </div>
                         <div class="form-group">
                             <label for="Address">Địa chỉ</label>
@@ -121,7 +122,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 1)) {
 <?php
     }
 } else {
-    header('Location: ../403.php');
+    header('Location: ../errors/403.php');
 }
 ?>
 <?php include "../includes/footer.php" ?>
