@@ -7,16 +7,14 @@
   <meta name="description" content="">
   <title>XDUDWEB</title>
 
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/blog/">
-
   <!-- Bootstrap core CSS -->
   <link href="http://localhost:5/udweb/asset/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
   <!-- Custom styles for this template -->
   <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-  <!-- Custom styles for this template -->
   <link href="http://localhost:5/udweb/asset/css/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src='https://www.google.com/recaptcha/api.js' async defer></script>
@@ -28,6 +26,7 @@
       <div class=" flex-nowrap justify-content-between align-items-center pt-1">
         <div class="text-center">
           <a class="blog-header-logo text-dark" href="/udweb">Xây Dựng Ứng Dụng Web</a>
+          <img src="../asset/NTB.png" alt="Nguyễn Trường Bình" hidden>
         </div>
       </div>
     </header>
