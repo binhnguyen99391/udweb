@@ -37,7 +37,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 7)) {
                 </div>
                 <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                     <div class="alert alert-danger fade in">
-                        <p>Bạn có chắc chắn muốn xóa thể loại này không?</p><br>
+                        <p>Bạn có chắc chắn muốn xóa thể loại <b> Phiêu lưu </b> này không?</p><br>
                         <p>
                             <input type="submit" value="Đồng ý" class="btn btn-danger" name="btn_submit">
                             <a href="index.php" class="btn btn-default">Hủy bỏ</a>

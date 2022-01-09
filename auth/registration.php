@@ -76,7 +76,7 @@ if (isset($_POST['btn_submit'])) {
             </div>
             <div class="form-group">
                 <label>Mật khẩu *</label>
-                <input type="password" class="form-control" name="password" placeholder="Tối thiểu 8 ký tự bao gồm chữ hoa, thường, số và ký tự" 
+                <input type="password" class="form-control" id="Password" name="password" placeholder="Tối thiểu 8 ký tự bao gồm chữ hoa, thường, số và ký tự" 
                 pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" required autocomplete="new-password">
             </div>
             <div class="form-group">

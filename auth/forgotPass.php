@@ -26,7 +26,7 @@ if (isset($_POST['btn_submit'])) {
 
             $to_email = "$inputEmail";
             $subject = "New Password";
-            $body = "Xin chào, mật khẩu mới của bạn ở website http://localhost:5/udweb là: $new_pass";
+            $body = "Xin chào, mật khẩu mới của bạn ở website http://localhost/udweb là: $new_pass";
             $headers = "From: binhnguyen9939@gmail.com" . "\r\n";
             if (mail($to_email, $subject, $body, $headers)) {
 

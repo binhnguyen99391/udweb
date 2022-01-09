@@ -8,12 +8,12 @@
   <title>XDUDWEB</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="http://localhost:5/udweb/asset/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost/udweb/asset/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
   <!-- Custom styles for this template -->
   <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-  <link href="http://localhost:5/udweb/asset/css/style.css" rel="stylesheet">
+  <link href="http://localhost/udweb/asset/css/style.css" rel="stylesheet">
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -43,12 +43,12 @@
           <a class="p-2 link-primary" href="forgotPass.php">Quên mật khẩu</a>
         <?php
         } else { ?>
-          <a class="p-2 link-primary" href="http://localhost:5/udweb/users">Quản lý người dùng</a>
-          <a class="p-2 link-primary" href="http://localhost:5/udweb/books">Quản lý sách</a>
-          <a class="p-2 link-primary" href="http://localhost:5/udweb/categories">Quản lý thể loại</a>
-          <a class="p-2 link-primary" href="http://localhost:5/udweb/borrow">Quản lý phiếu mượn</a>
-          <a class="p-2 link-primary" href="http://localhost:5/udweb/auth/changePass.php">Đổi mật khẩu</a>
-          <a class="p-2 link-primary" href="http://localhost:5/udweb/auth/logout.php">Đăng xuất</a>
+          <a class="p-2 link-primary" href="http://localhost/udweb/users">Quản lý người dùng</a>
+          <a class="p-2 link-primary" href="http://localhost/udweb/books">Quản lý sách</a>
+          <a class="p-2 link-primary" href="http://localhost/udweb/categories">Quản lý thể loại</a>
+          <a class="p-2 link-primary" href="http://localhost/udweb/borrow">Quản lý phiếu mượn</a>
+          <a class="p-2 link-primary" href="http://localhost/udweb/auth/changePass.php">Đổi mật khẩu</a>
+          <a class="p-2 link-primary" href="http://localhost/udweb/auth/logout.php">Đăng xuất</a>
         <?php } ?>
       </nav>
     </div>

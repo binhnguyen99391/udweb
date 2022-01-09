@@ -18,6 +18,7 @@ if (checkPermission($conn, $_SESSION['role_id'], 1)) {
         $username = htmlspecialchars($_POST['username']);
         $password = htmlspecialchars($_POST['password']);
         $email = htmlspecialchars($_POST['email']);
+        $role_id = htmlspecialchars($_POST['role']);
         $phone = htmlspecialchars($_POST['phone']);
         $address = htmlspecialchars($_POST['address']);
 
@@ -48,8 +49,8 @@ if (checkPermission($conn, $_SESSION['role_id'], 1)) {
             exit;
         }
 
-        $query    = "INSERT into users (username, password, email, phone, address)
-                        VALUES ('$username', '" . sha1($password) . "', '$email', '$phone', '$address')";
+        $query    = "INSERT into users (role_id, username, password, email, phone, address)
+                        VALUES ('$role_id', '$username', '" . sha1($password) . "', '$email', '$phone', '$address')";
         $result   = mysqli_query($conn, $query);
 
         if ($result) {
@@ -89,6 +90,12 @@ if (checkPermission($conn, $_SESSION['role_id'], 1)) {
                             <label>Email *</label>
                             <input type="email" class="form-control" name="email" placeholder="Nhập Email" required>
                         </div>
+                        <label>Vai trò</label><br>
+                        <select name="role" class="form-control w-25">
+                            <option value="1">Quản trị viên</option>
+                            <option value="2">Thủ thư</option>
+                            <option value="3">Người dùng</option>
+                        </select><br>
                         <div class="form-group">
                             <label>Số điện thoại</label>
                             <input type="tel" class="form-control" name="phone" placeholder="Nhập số điện thoại" 
